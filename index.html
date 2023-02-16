@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						Open-closed principle
+					</section>
+					<section>
+						<blockquote>
+							The open-closed principle states that a class, method, and function should be open for extension but closed for modification.
+						</blockquote>
+					</section>
+					<section>
+					  <h3>Flowchart</h3>
+					  <div class="mermaid">
+						<pre>
+						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+						  classDiagram
+							Person <|-- PersonStorage
+							class Person{
+							  +String name
+							}
+							class PersonStorage{
+							  -save_to_database()
+							  -save_to_json()
+							}
+
+						</pre>
+					  </div>
+					  <aside class="notes">
+						If you want to save the Person’s object into an XML file, you must modify the PersonStorage class.
+						It means that the PersonStorage class is not open for extension but modification.
+						Hence, it violates the open-closed principle.
+					  </aside>
+					</section>
+					<section>
+						<pre><code class="hljs python" data-trim data-line-numbers>
+						class Person:
+							def __init__(self, name):
+								self.name = name
+
+							def __repr__(self):
+								return f'Person(name={self.name})'
+
+
+						class PersonStorage:
+							def save_to_database(self, person):
+								print(f'Save the {person} to database')
+
+							def save_to_json(self, person):
+								print(f'Save the {person} to a JSON file')
+
+
+						if __name__ == '__main__':
+							person = Person('John Doe')
+							storage = PersonStorage()
+							storage.save_to_database(person)
+						</code></pre>
+					</section>
+
+					<section>
+						<div class="mermaid">
+						<pre>
+						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+						  classDiagram
+							Person <-- PersonStorage
+							PersonStorage <|-- PersonJSON
+							PersonStorage <|-- PersonDB
+							class Person{
+							  +String name
+							}
+							class PersonStorage{
+							  -save()
+							}
+							class PersonJSON{
+							  -save()
+							}
+							class PersonDB{
+							  -save()
+							}
+						</pre>
+					  </div>
+					</section>
+
+					<section>
+						<pre><code class="hljs python" data-trim data-line-numbers>
+from abc import ABC, abstractmethod
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f'Person(name={self.name})'
+
+
+class PersonStorage(ABC):
+    @abstractmethod
+    def save(self, person):
+        pass
+
+
+class PersonDB(PersonStorage):
+    def save(self, person):
+        print(f'Save the {person} to database')
+
+
+class PersonJSON(PersonStorage):
+    def save(self, person):
+        print(f'Save the {person} to a JSON file')
+
+
+if __name__ == '__main__':
+    person = Person('John Doe')
+    storage = PersonDB()
+    storage.save(person)
+
+						</code></pre>
+					</section>
+
+					<section>
+						<blockquote>
+							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying the existing code.
+						</blockquote>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>References</h2>
+					https://www.pythontutorial.net/python-oop/python-open-closed-principle/
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@1.1.0/plugin/mermaid/mermaid.js"></script>
+
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMermaid ]
+			});
+		</script>
+	</body>
+</html>
