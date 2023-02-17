@@ -18,15 +18,53 @@
 			<div class="slides">
 				<section>
 					<section>
+						React: https://konstantinlebedev.com/solid-in-react/
+					</section>
+				</section>
+				<section>
+					<section>
 						Open-closed principle
+						<img src="./assets/open-closed principle.png"/>
 					</section>
 					<section>
 						<blockquote>
 							The open-closed principle states that a class, method, and function should be open for extension but closed for modification.
 						</blockquote>
+						<aside class="notes">
+							Robert C. Martin considered this principle "the most important principle of object-oriented design"
+						</aside>
 					</section>
+
 					<section>
-					  <h3>Flowchart</h3>
+						<h2>But what does that mean?</h2>
+						<blockquote>
+							Simply, it means that if your business requirements change you shouldn’t modify the existing code (closed for modifications). Instead, you should add a new code that extends the existing code without affecting it (open for extension).
+						</blockquote>
+					</section>
+
+					<section>
+						<h2>How can this be achieved?</h2>
+						<ul class="r-fit-text">
+							<li>
+								 The object-oriented programming way to do this is using inheritance: create a subclass and override any desired methods and properties.
+							</li>
+							<li>
+								An elegant way to avoid breaking the principle, if applicable, is to use interfaces as parameters for classes and implement our logic using those interfaces (strategy pattern).
+							</li>
+						</ul>
+						<aside class="notes">
+							 Use the <a href="https://forums.kodeco.com/t/how-is-strategy-pattern-different-from-the-open-closed-principle/66239/3">strategy pattern</a>.
+							https://dev.to/abh1navv/how-solid-is-your-code-open-closed-principle-3k68
+							Hide every special implementation behind an interface.
+							Realised through the usage of interfaces.
+							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
+							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
+							Object-oriented: This works – you’re not modifying the code of the base class, so it satisfies OCP – but is it the best option? It may not be! For example, if you need to override the same methods with the same behavior in multiple subclasses, you’d wind up duplicating code if you only use inheritance.
+						</aside>
+					</section>
+
+					<section>
+					  <h3>Is this correct?</h3>
 					  <div class="mermaid">
 						<pre>
 						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
@@ -48,7 +86,7 @@
 						Hence, it violates the open-closed principle.
 					  </aside>
 					</section>
-					<section>
+					<section data-visibility="hidden">
 						<pre><code class="hljs python" data-trim data-line-numbers>
 						class Person:
 							def __init__(self, name):
@@ -97,7 +135,7 @@
 					  </div>
 					</section>
 
-					<section>
+					<section data-visibility="hidden">
 						<pre><code class="hljs python" data-trim data-line-numbers>
 from abc import ABC, abstractmethod
 
@@ -135,10 +173,81 @@ if __name__ == '__main__':
 
 					<section>
 						<blockquote>
-							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying the existing code.
+							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying (breaking) the existing code.
 						</blockquote>
 					</section>
 
+					<section>
+						<h2>How to spot violations</h2>
+						<div class="r-fit-text">You are violating this principle if you directly work with a concrete implementation instead of an abstraction. The violation becomes visible when you must extend existing code to accommodate new functionality.</div>
+					</section>
+
+					<section>
+						<h2>Some signs of violations</h2>
+						<ul class="r-fit-text">
+							<li>You have private methods that almost do the same thing (but with a slight variation in the implementation)</li>
+							<li>You use (a lot of) ifs to control behavior, e.g. doing something the old way or the new way.</li>
+							<li>You use an abstract class but check for the concrete implementation to control flow (methods that adjust logic based on instance types)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Warning?</h2>
+						<div>Premature optimization can introduce uncessary complexity. If you extend the export class when you have just pdf then we are introducing unnecessary complexity</div>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul class="r-fit-text">
+							<li>Reduce testing of existing code. The less you change the existing code, the less it would introduce new bugs.</li>
+							<li>Reduce the cost of a business change requirement.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Template Method Pattern</h2>
+						<div class="r-fit-text">Create an abstract class containing the base logic, and create implementations of it for different behavior. If you want to add new behavior, you simply create a new class, derive from the base class and add the functionality. </div>
+						<img src="./assets/template-method-pattern.png" />
+					</section>
+
+					<section>
+						<h2>Decorator Pattern</h2>
+						<div class="r-fit-text">If you want to extend functionality (do the original thing and something extra before and/or after) but not want to change the existing class.</div>
+						<a href="https://alexnault.dev/open-closed-principle-in-functional-typescript">Example in React</a>
+						<a href="https://dev.to/shadid12/why-apply-open-closed-principles-in-react-component-composition-26p1">Example in React</a>
+						<img src="./assets/decorator-pattern.png" />
+					</section>
+
+					<section>
+						<h2>Strategy Design Pattern</h2>
+						<div class="r-fit-text">One way is to create an interface (or abstract class) for the behavior, implement the interface for a certain behavior and use the interface from the calling class. </div>
+						<img src="./assets/strategy-design-pattern.png" />
+						<div class="r-fit-text">The strategy design pattern is a great example that achieves the OCP in an elegant way. It is one of the most useful design patterns.</div>
+						<aside class="notes">
+							You have a problem that can be solved in multiple ways. These ways are called Strategies, every strategy encapsulates a different solution for the problem. All these strategies must implement one interface to solve this problem. This problem is in a class called Context. These strategies can be injected into the context in many ways like Dependency Injection, Factory Design Pattern, or simply, by If Condition.
+							Now, your code is open for extensions as it enables you to use different strategies as long as they implement the required interface. And closed for modifications because the context class itself doesn’t have to be changed, it solves its problem with any strategy, no matter what exactly the strategy is.
+					   </aside>
+					</section>
+
+
+					<section>
+						<h2>References</h2>
+						<ul class="r-fit-text">
+							<li>https://blog.mayallo.com/open-closed-principle-the-hard-parts</li>
+							<li>https://thevaluable.dev/open-closed-principle-revisited/</li>
+							<li>https://stackoverflow.com/questions/59016/what-is-the-meaning-and-reasoning-behind-the-open-closed-principle</li>
+							<li>https://www.devonblog.com/software-development/solid-violations-in-the-wild-the-open-closed-principle/</li>
+							<li>https://ezzeddinabdullah.com/post/solid-principles-ocp-py/</li>
+							<li>https://ericbackhage.net/clean-code/solid-the-open-closed-principle/</li>
+							<li>https://www.devonblog.com/software-development/solid-violations-in-the-wild-the-open-closed-principle/</li>
+							<li>https://waldemar.bearblog.dev/open-closed-principle/</li>
+							<li>https://michalgodkowicz.medium.com/how-to-make-your-python-code-maintainable-with-the-open-close-principle-1860fecc8ec0</li>
+						</ul>
+					</section>
+
+				</section>
+				<section>
+					<section>Liskov’s substitution principle</section>
 				</section>
 
 				<section>
