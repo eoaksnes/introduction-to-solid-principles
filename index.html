@@ -18,9 +18,43 @@
 			<div class="slides">
 				<section>
 					<section>
+						<h2>Single responsibility principle</h2>
+						<img src="./assets/single-responsibility-principle2.png" />
+					</section>
+
+					<section>
+						<blockquote>
+							A class should have only one responsibility and there should be only one reason why you want to change the class. Do one thing and do it well!
+						</blockquote>
+						<img style="width: 200px" src="./assets/single-responsibility-principle.png" />
+						<aside class="notes">
+						</aside>
+					</section>
+
+					<section>
+						<h2>Some signs of violations</h2>
+						<ul class="r-fit-text">
+							<li>If statements and switch statements (can have multiple reasons to change where each case represent one responsibility)</li>
+							<li>Monster methods (does more than one thing)</li>
+							<li>God class (everything in a single class)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul class="r-fit-text">
+							<li>The code is easier to understand (does only one thing)</li>
+							<li>The code is easier to test (less test cases)</li>
+							<li>The code is less fragile (changes are isolated) and therefore easier to maintain</li>
+							<li>The code is more reusable (the code should be reusable without modification)</li>
+						</ul>
+					</section>
+
+					<section>
 						React: https://konstantinlebedev.com/solid-in-react/
 					</section>
 				</section>
+
 				<section>
 					<section>
 						Open-closed principle
@@ -30,6 +64,7 @@
 						<blockquote>
 							The open-closed principle states that a class, method, and function should be open for extension but closed for modification.
 						</blockquote>
+						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
 						<aside class="notes">
 							Robert C. Martin considered this principle "the most important principle of object-oriented design"
 						</aside>
