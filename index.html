@@ -32,6 +32,56 @@
 					</section>
 
 					<section>
+					  <h3>Is this correct?</h3>
+					  <div class="mermaid">
+						<pre>
+						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+						  classDiagram
+							class Person{
+							  +String name
+							  -save()
+							}
+						</pre>
+					  </div>
+					  <div>This Person class has two jobs</div>
+					  <ul>
+						  <li>Manage the person’s property.</li>
+						  <li>Store the person in the database.</li>
+					  </ul>
+					</section>
+
+					<section>
+					  <h3>Is this correct?</h3>
+					  <div class="mermaid">
+						<pre>
+						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+						  classDiagram
+							Person <|-- PersonDB
+							class Person{
+							  +String name
+							}
+							class PersonDB{
+							  -save()
+							}
+						</pre>
+					  </div>
+					  <div>Separate the Person class into two classes.</div>
+						<ul>
+							<li>The Person class is responsible for managing the person’s properties.</li>
+							<li>The PersonDB class is responsible for storing the person in the database.</li>
+						</ul>
+					  <aside class="notes">
+					  </aside>
+					</section>
+
+					<section>
+						<h2>How to spot violations</h2>
+						<div>
+							When designing classes, you should put related methods that have the same reason for change together. In other words, you should separate classes if they change for different reasons.
+						</div>
+					</section>
+
+					<section>
 						<h2>Some signs of violations</h2>
 						<ul class="r-fit-text">
 							<li>If statements and switch statements (can have multiple reasons to change where each case represent one responsibility)</li>
@@ -43,15 +93,28 @@
 					<section>
 						<h2>Benefits</h2>
 						<ul class="r-fit-text">
-							<li>The code is easier to understand (does only one thing)</li>
+							<li>
+								The code is easier to understand (does only one thing)
+								<ul>
+									<li>
+										We spend 90% of our time as software developer reading code, so it’s pretty important to be able to understand it and reason about it very fast.
+									</li>
+								</ul>
+							</li>
 							<li>The code is easier to test (less test cases)</li>
 							<li>The code is less fragile (changes are isolated) and therefore easier to maintain</li>
 							<li>The code is more reusable (the code should be reusable without modification)</li>
+							<li>The code becomes more decoupled</li>
 						</ul>
 					</section>
 
 					<section>
-						React: https://konstantinlebedev.com/solid-in-react/
+						<h2>References</h2>
+						<ul>
+							<li>https://konstantinlebedev.com/solid-in-react/</li>
+							<li>https://ducmanhphan.github.io/2020-01-17-Understanding-about-SOLID-part-1/</li>
+							<li>https://www.pythontutorial.net/python-oop/python-single-responsibility-principle/</li>
+						</ul>
 					</section>
 				</section>
 
@@ -121,6 +184,7 @@
 						Hence, it violates the open-closed principle.
 					  </aside>
 					</section>
+
 					<section data-visibility="hidden">
 						<pre><code class="hljs python" data-trim data-line-numbers>
 						class Person:
@@ -283,11 +347,87 @@ if __name__ == '__main__':
 				</section>
 				<section>
 					<section>Liskov’s substitution principle</section>
+
+					<section>
+						<blockquote>
+							If a derived class is to be implemented, the base class must be extended without changing the behavior of the base function
+						</blockquote>
+					</section>
+
+					<section>
+						<h2>What does that mean?</h2>
+						<div>
+							In simpler terms, subclasses must behave like base classes.
+						</div>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul>
+							<li>
+								 Security that an implementation can be replaced without changing its behavior.
+							</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section>Interface Segregation Principle</section>
+
+					<section>
+						<blockquote>
+							Each class should be focused on one aspect or topic only
+						</blockquote>
+					</section>
+
+					<section>
+						<h2>What does that mean?</h2>
+						<div>
+							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
+						</div>
+					</section>
+
+					<section>
+						<h2>The solution?</h2>
+						<div>
+							Do not let interfaces become large in the first place and divide them into many small interfaces beforehand. This allows much more targeted interfaces to be defined externally.
+						</div>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul>
+						️    <li>Simplifies reuse, testing, and maintenance by sharing responsibilities</li>
+						    <li>Insulates classes from errors by introducing clear boundaries</li>
+							<li>Allows functions to be replaced without having to understand related classes</li>
+							<li>Lowers cognitive load by isolating topics</li>
+							<li>Focuses attention on a single aspect</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h2>Dependency Inversion Principle</h2>
+					</section>
+
+					<section>
+						<h2>Higher level classes should not depend on lower level classes</h2>
+					</section>
 				</section>
 
 				<section>
 					<h2>References</h2>
-					https://www.pythontutorial.net/python-oop/python-open-closed-principle/
+					<ul>
+						<li>
+							https://camao-tec.com/en/solid-principles-easily-explained/
+						</li>
+						<li>
+							https://www.pythontutorial.net/python-oop/python-open-closed-principle/
+						</li>
+					</ul>
 				</section>
 			</div>
 		</div>
