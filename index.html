@@ -34,23 +34,30 @@
 					</section>
 
 					<section>
-						<blockquote>
+						<blockquote style="font-size: 0.7em">
 							A class should have only one responsibility and there should be only one reason why you want to change the class.
 						</blockquote>
+						<div>
+						<img style="height: 40px" src="./assets/dropdown.png" />
+						</div>
+						<blockquote style="font-size: 0.7em">
+							Do one thing and do it well!
+						</blockquote>
 						<aside class="notes">
-							If a Class has many responsibilities, it increases the possibility of bugs because making changes to one of its responsibilities, could affect the other ones without you knowing.
+							<ul>
+								<li>“…You had one job” - Loki to Skurge in Thor: Ragnarok</li>
+								<li><a href="https://www.youtube.com/watch?v=4Y0tOi7QWqM">“Fits In My Head“</a> - Dan North</li>
+								<li>Write classes so that your code fits in your head.</li>
+								<li>If a Class has many responsibilities, it increases the possibility of bugs because making changes to one of its responsibilities, could affect the other ones without you knowing.</li>
+							</ul>
 						</aside>
 					</section>
 
 					<section>
-						<h2>What does that mean?</h2>
-						<div>Do one thing and do it well!</div>
-					<aside class="notes">
-						<div>“…You had one job” - Loki to Skurge in Thor: Ragnarok</div>
-						<div><a href="https://www.youtube.com/watch?v=4Y0tOi7QWqM">“Fits In My Head“</a> - Dan North</div>
-
-						Write classes so that your code fits in your head.
-					</aside>
+						<h2>Guideline</h2>
+						<div>Gather together the things that change for the same reasons. Separate those things that change for different reasons.</div>
+						<img style="width: 200px" src="./assets/single-responsibility-principle.png" />
+						<aside class="notes"> A simple way to implement this is to group together methods and attributes that are going to change for the same reason. This allows us to write modular code that is easily maintainable and testable.</aside>
 					</section>
 
 					<section>
@@ -96,13 +103,6 @@
 							<li>The PersonDB class is responsible for storing the person in the database.</li>
 						</ul>
 					  </aside>
-					</section>
-
-					<section>
-						<h2>Guideline</h2>
-						<div>Gather together the things that change for the same reasons. Separate those things that change for different reasons.</div>
-						<img style="width: 200px" src="./assets/single-responsibility-principle.png" />
-						<aside class="notes"> A simple way to implement this is to group together methods and attributes that are going to change for the same reason. This allows us to write modular code that is easily maintainable and testable.</aside>
 					</section>
 
 					<section>
@@ -175,9 +175,16 @@
 						Open-closed principle
 						<img style="width: 600px" src="./assets/open-closed principle.png"/>
 					</section>
+
 					<section>
-						<blockquote>
+						<blockquote style="font-size: 0.7em">
 							A software module (can be a class or method) should be open for extension but closed for modification.
+						</blockquote>
+						<div>
+						<img style="height: 40px" src="./assets/dropdown.png" />
+						</div>
+						<blockquote style="font-size: 0.7em">
+							Simply, it means that if your business requirements change you shouldn’t modify the existing code (closed for modifications). Instead, you should add a new code that extends the existing code without affecting it (open for extension).
 						</blockquote>
 						<aside class="notes">
 							Robert C. Martin considered this principle "the most important principle of object-oriented design"
@@ -185,10 +192,28 @@
 					</section>
 
 					<section>
-						<h2>But what does that mean?</h2>
-						<blockquote>
-							Simply, it means that if your business requirements change you shouldn’t modify the existing code (closed for modifications). Instead, you should add a new code that extends the existing code without affecting it (open for extension).
-						</blockquote>
+						<h2>Guideline</h2>
+						<ul class="r-fit-text">
+							<li>
+								 The object-oriented programming way to do this is using inheritance
+								<ul>
+									<li>Create a subclass and override any desired methods and properties.</li>
+								</ul>
+							</li>
+							<li>
+								Realised through the usage of interfaces (hide every special implementation behind an interface)
+								<ul>
+									<li>
+										An elegant way to avoid breaking the principle, if applicable, is to use interfaces as parameters for classes and implement our logic using those interfaces (strategy pattern).
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
+						<aside class="notes">
+							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
+							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
+						</aside>
 					</section>
 
 					<section>
@@ -301,31 +326,6 @@ if __name__ == '__main__':
 						</code></pre>
 					</section>
 
-					<section>
-						<h2>Guideline</h2>
-						<ul class="r-fit-text">
-							<li>
-								 The object-oriented programming way to do this is using inheritance
-								<ul>
-									<li>Create a subclass and override any desired methods and properties.</li>
-								</ul>
-							</li>
-							<li>
-								Realised through the usage of interfaces (hide every special implementation behind an interface)
-								<ul>
-									<li>
-										An elegant way to avoid breaking the principle, if applicable, is to use interfaces as parameters for classes and implement our logic using those interfaces (strategy pattern).
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
-						<aside class="notes">
-							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
-							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
-						</aside>
-					</section>
-
 					<section data-visibility="hidden">
 						<blockquote>
 							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying (breaking) the existing code.
@@ -409,21 +409,27 @@ if __name__ == '__main__':
 					</section>
 
 					<section>
-						<blockquote>
+						<blockquote style="font-size: 0.7em">
 							Objects in a program should be replaceable with instances of their subtypes <b>without altering the correctness</b> of the program.
+						</blockquote>
+						<div>
+						<img style="height: 40px" src="./assets/dropdown.png" />
+						</div>
+						<blockquote style="font-size: 0.7em">
+							In simpler terms, subclasses must behave like base classes. If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
 						</blockquote>
 					</section>
 
 					<section>
-						<h2>What does that mean?</h2>
-						<blockquote>
-							In simpler terms, subclasses must behave like base classes.
-						</blockquote>
-						<blockquote>
-							If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
-						</blockquote>
+						<h2>Guideline</h2>
+						<div>
+							Do not let interfaces become large in the first place and divide them into many small interfaces beforehand. This allows much more targeted interfaces to be defined externally.
+						</div>
+						<aside class="notes">
+							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
+						</aside>
 					</section>
-
+					
 					<section>
 						<h2>Typescript</h2>
 						<pre>
@@ -467,8 +473,14 @@ printFiltered(array, isOdd);
 					</section>
 
 					<section>
-						<blockquote>
+						<blockquote style="font-size: 0.7em">
 							Clients should not be forced to depend upon the interfaces that they do not use.
+						</blockquote>
+						<div>
+						<img style="height: 40px" src="./assets/dropdown.png" />
+						</div>
+						<blockquote style="font-size: 0.7em">
+							Keep your interfaces the smallest you can. No client should be forced to depend on methods it does not use.
 						</blockquote>
 						<aside class="notes">
 						<div>
@@ -477,24 +489,9 @@ printFiltered(array, isOdd);
 						<div>
 							Each class should be focused on one aspect or topic only
 						</div>
-						</aside>
-					</section>
-
-					<section>
-						<h2>What does that mean?</h2>
-						<blockquote>Keep your interfaces the smallest you can. No client should be forced to depend on methods it does not use.</blockquote>
-						<aside class="notes">
-							<div>Clients should not be forced to depend on methods that they do not use.</div>
-						</aside>
-					</section>
-
-					<section>
-						<h2>Guideline</h2>
 						<div>
-							Do not let interfaces become large in the first place and divide them into many small interfaces beforehand. This allows much more targeted interfaces to be defined externally.
+							Clients should not be forced to depend on methods that they do not use.
 						</div>
-						<aside class="notes">
-							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
 						</aside>
 					</section>
 
@@ -514,15 +511,16 @@ printFiltered(array, isOdd);
 					</section>
 
 					<section>
-						<blockquote>
+						<blockquote style="font-size: 0.7em">
 							High level modules <b>should not depend upon low level</b> modules. Both <b>should depend upon abstractions</b>.
 							Abstractions should not depend upon details. Details should depend upon abstractions.
 						</blockquote>
-					</section>
-
-					<section>
-						<h2>What does this mean?</h2>
-						<div>Objects should not instantiate their dependencies, but they should be passed to them.</div>
+						<div>
+						<img style="height: 40px" src="./assets/dropdown.png" />
+						</div>
+						<blockquote style="font-size: 0.7em">
+							Objects should not instantiate their dependencies, but they should be passed to them.
+						</blockquote>
 					</section>
 
 					<section>
