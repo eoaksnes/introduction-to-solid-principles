@@ -30,7 +30,7 @@
 				<section>
 					<section>
 						<h2>Single responsibility principle</h2>
-						<img src="./assets/single-responsibility-principle2.png" />
+						<img style="width: 600px" src="./assets/single-responsibility-principle2.png" />
 					</section>
 
 					<section>
@@ -159,7 +159,7 @@
 
 					<section>
 						<h2>References</h2>
-						<ul>
+						<ul class="r-fit-text">
 							<li>React: https://konstantinlebedev.com/solid-in-react/</li>
 							<li>https://ducmanhphan.github.io/2020-01-17-Understanding-about-SOLID-part-1/</li>
 							<li>https://www.pythontutorial.net/python-oop/python-single-responsibility-principle/</li>
@@ -173,11 +173,11 @@
 				<section>
 					<section>
 						Open-closed principle
-						<img src="./assets/open-closed principle.png"/>
+						<img style="width: 600px" src="./assets/open-closed principle.png"/>
 					</section>
 					<section>
 						<blockquote>
-							The open-closed principle states that a class, method, and function should be open for extension but closed for modification.
+							A software module (can be a class or method) should be open for extension but closed for modification.
 						</blockquote>
 						<aside class="notes">
 							Robert C. Martin considered this principle "the most important principle of object-oriented design"
@@ -187,33 +187,8 @@
 					<section>
 						<h2>But what does that mean?</h2>
 						<blockquote>
-							Classes should be extendable, but not modifiable.
-						</blockquote>
-						<blockquote>
 							Simply, it means that if your business requirements change you shouldn’t modify the existing code (closed for modifications). Instead, you should add a new code that extends the existing code without affecting it (open for extension).
 						</blockquote>
-					</section>
-
-					<section>
-						<h2>Guideline</h2>
-						<ul class="r-fit-text">
-							<li>
-								 The object-oriented programming way to do this is using inheritance: create a subclass and override any desired methods and properties.
-							</li>
-							<li>
-								An elegant way to avoid breaking the principle, if applicable, is to use interfaces as parameters for classes and implement our logic using those interfaces (strategy pattern).
-							</li>
-						</ul>
-						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
-						<aside class="notes">
-							 Use the <a href="https://forums.kodeco.com/t/how-is-strategy-pattern-different-from-the-open-closed-principle/66239/3">strategy pattern</a>.
-							https://dev.to/abh1navv/how-solid-is-your-code-open-closed-principle-3k68
-							Hide every special implementation behind an interface.
-							Realised through the usage of interfaces.
-							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
-							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
-							Object-oriented: This works – you’re not modifying the code of the base class, so it satisfies OCP – but is it the best option? It may not be! For example, if you need to override the same methods with the same behavior in multiple subclasses, you’d wind up duplicating code if you only use inheritance.
-						</aside>
 					</section>
 
 					<section>
@@ -327,6 +302,31 @@ if __name__ == '__main__':
 					</section>
 
 					<section>
+						<h2>Guideline</h2>
+						<ul class="r-fit-text">
+							<li>
+								 The object-oriented programming way to do this is using inheritance
+								<ul>
+									<li>Create a subclass and override any desired methods and properties.</li>
+								</ul>
+							</li>
+							<li>
+								Realised through the usage of interfaces (hide every special implementation behind an interface)
+								<ul>
+									<li>
+										An elegant way to avoid breaking the principle, if applicable, is to use interfaces as parameters for classes and implement our logic using those interfaces (strategy pattern).
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
+						<aside class="notes">
+							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
+							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
 						<blockquote>
 							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying (breaking) the existing code.
 						</blockquote>
@@ -405,26 +405,23 @@ if __name__ == '__main__':
 				<section>
 					<section>
 						Liskov’s substitution principle
-					<img src="./assets/liskov-substitution-principle2.webp"/>
+					<img style="width: 600px" src="./assets/liskov-substitution-principle2.webp"/>
 					</section>
 
 					<section>
 						<blockquote>
 							Objects in a program should be replaceable with instances of their subtypes <b>without altering the correctness</b> of the program.
 						</blockquote>
-						<blockquote>
-							If a derived class is to be implemented, the base class must be extended without changing the behavior of the base function
-						</blockquote>
 					</section>
 
 					<section>
 						<h2>What does that mean?</h2>
-						<div>
+						<blockquote>
 							In simpler terms, subclasses must behave like base classes.
-						</div>
-						<div>
+						</blockquote>
+						<blockquote>
 							If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
-						</div>
+						</blockquote>
 					</section>
 
 					<section>
@@ -471,20 +468,24 @@ printFiltered(array, isOdd);
 
 					<section>
 						<blockquote>
+							Clients should not be forced to depend upon the interfaces that they do not use.
+						</blockquote>
+						<aside class="notes">
+						<div>
 							Many client-specific interfaces are better than one general-purpose interface.
-						</blockquote>
-						<blockquote>
+						</div>
+						<div>
 							Each class should be focused on one aspect or topic only
-						</blockquote>
+						</div>
+						</aside>
 					</section>
 
 					<section>
 						<h2>What does that mean?</h2>
-						<div>Keep your interfaces the smallest you can. No client should be forced to depend on methods it does not use.</div>
-						<div>Clients should not be forced to depend on methods that they do not use.</div>
-						<div>
-							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
-						</div>
+						<blockquote>Keep your interfaces the smallest you can. No client should be forced to depend on methods it does not use.</blockquote>
+						<aside class="notes">
+							<div>Clients should not be forced to depend on methods that they do not use.</div>
+						</aside>
 					</section>
 
 					<section>
@@ -492,6 +493,9 @@ printFiltered(array, isOdd);
 						<div>
 							Do not let interfaces become large in the first place and divide them into many small interfaces beforehand. This allows much more targeted interfaces to be defined externally.
 						</div>
+						<aside class="notes">
+							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
+						</aside>
 					</section>
 
 					<section>
@@ -506,7 +510,7 @@ printFiltered(array, isOdd);
 				<section>
 					<section>
 						<h2>Dependency Inversion Principle</h2>
-						<img src="./assets/dependency-inversion-principle2.webp"/>
+						<img style="width: 600px" src="./assets/dependency-inversion-principle2.webp"/>
 					</section>
 
 					<section>
