@@ -214,6 +214,14 @@
 												</li>
 											</ul>
 										</li>
+										<li>
+											 By using <b>function parameters</b>
+											<ul>
+												<li>
+													Here, by passing arguments to a function, we can change its functionality. Could be a function passed as a parameter to another function. Composition to create new behaviors from previously defined functions and higher-order functions to change functionality at runtime. The ideal choice in Functional Programming.
+												</li>
+											</ul>
+										</li>
 									</ul>
 								</li>
 							</ul>
@@ -248,6 +256,127 @@
 								</ul>
 							</li>
 						</ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Possible to extend?</h2>
+						<pre>
+							<code class="hljs javascript" data-trim data-line-numbers>
+class Logger {
+    // Concrete function. Does one thing in exactly one way
+    // If you want to change its functionality, you have to modify it directly.
+    log() {
+        console.log('Hi');
+    }
+}
+const logger = new Logger();
+logger.log();
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Function parameters</h2>
+						<pre>
+							<code class="hljs javascript" data-trim data-line-numbers>
+class Logger {
+    log(message: string) {
+        console.log(message);
+    }
+}
+const logger = new Logger();
+logger.log('Hello');
+							</code>
+						</pre>
+						<aside class="notes">
+							Now, as you see, this function can print any message instead of just a fixed one. So this function is opened for extensions by changing the message it prints.
+						</aside>
+					</section>
+
+					<section>
+						<h2>Partial Abstraction via Inheritance</h2>
+						<pre>
+							<code class="hljs javascript" data-trim data-line-numbers>
+class Logger {
+    log() {
+        console.log('Hi');
+    }
+}
+class AnotherLogger extends Logger {
+    log() {
+        console.log('Hi from Another');
+    }
+}
+// const logger = new Logger();
+const logger = new AnotherLogger();
+logger.log();
+							</code>
+						</pre>
+						<aside class="notes">
+							<ul>
+								<li>
+									Whenever your class needs to be changed, instead of modifying the existing functionality, this approach encourages you to create a new subclass that holds the new implementation or overrides the original one as required. And leave the original implementation unchanged.
+								</li>
+								<li>
+									As you see, instead of modifying the original class Logger, we have just added a new subclass AnotherLogger that overrides the parent class behavior which is the log method.
+								</li>
+								<li>
+									As a side note, you should avoid using inheritance if possible, because inheritance introduces tight coupling if the subclasses depend on the implementation details of their parent class. If the parent class changes, it would affect the subclasses and they may need to be modified as well.
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+
+					<section>
+						<h2>Total Abstraction via Composition and Interfaces</h2>
+						<div>
+							The main benefit of this approach is achieving Polymorphism which in turn achieves the Loose Coupling.
+						</div>
+						<pre>
+							<code class="hljs javascript" data-trim data-line-numbers>
+interface ILogger {
+    log(): void
+}
+class AnotherLogger implements ILogger {
+    log() {
+        console.log('Hi from Another');
+    }
+}
+class AnotherElseLogger implements ILogger {
+    log() {
+        console.log('Hi from Another Else');
+    }
+}
+class Logger implements ILogger {
+    logger: ILogger;
+    constructor(logger: AnotherLogger) {
+        this.logger = logger;
+    }
+    log() {
+        this.logger.log();
+    }
+}
+const anotherLogger = new AnotherLogger();
+const logger = new Logger(anotherLogger);
+// const anotherElseLogger = new AnotherElseLogger();
+// const logger = new Logger(anotherElseLogger);
+logger.log();
+							</code>
+						</pre>
+						<aside class="notes">
+							<ul>
+								<li>
+									In this approach, instead of setting your new functionality directly in the main class, you move it to another class and then reference this new class into the main class by Dependency Injection. And any injected class must implement an interface. Once the new class implements this interface correctly, the main class can eventually use its functionality. That’s how can you use composition and interfaces over the inheritance.
+								</li>
+								<li>
+									As you see, now the Logger class is independent of any entity. Only the injected instance has to implement the ILogger interface. So you can use AnotherLogger or any logger you want as long as it implements the ILogger interface.
+								</li>
+								<li>
+									Whereas, programming to interfaces introduces a new layer of abstraction. The interface itself is considered to be closed not the implementation because there might be many different implementations of one interface at the same time. The interface itself is reused not the implementation. Which in turn, leads to loose coupling.
+								</li>
+							</ul>
 						</aside>
 					</section>
 
@@ -414,8 +543,14 @@ if __name__ == '__main__':
 						<img src="./assets/strategy-design-pattern.png" />
 						<div class="r-fit-text">The strategy design pattern is a great example that achieves the OCP in an elegant way. It is one of the most useful design patterns.</div>
 						<aside class="notes">
-							You have a problem that can be solved in multiple ways. These ways are called Strategies, every strategy encapsulates a different solution for the problem. All these strategies must implement one interface to solve this problem. This problem is in a class called Context. These strategies can be injected into the context in many ways like Dependency Injection, Factory Design Pattern, or simply, by If Condition.
-							Now, your code is open for extensions as it enables you to use different strategies as long as they implement the required interface. And closed for modifications because the context class itself doesn’t have to be changed, it solves its problem with any strategy, no matter what exactly the strategy is.
+							<ul>
+								<li>
+									You have a problem that can be solved in multiple ways. These ways are called Strategies, every strategy encapsulates a different solution for the problem. All these strategies must implement one interface to solve this problem. This problem is in a class called Context. These strategies can be injected into the context in many ways like Dependency Injection, Factory Design Pattern, or simply, by If Condition.
+								</li>
+								<li>
+									Now, your code is open for extensions as it enables you to use different strategies as long as they implement the required interface. And closed for modifications because the context class itself doesn’t have to be changed, it solves its problem with any strategy, no matter what exactly the strategy is.
+								</li>
+							</ul>
 					   </aside>
 					</section>
 
