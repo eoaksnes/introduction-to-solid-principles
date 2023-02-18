@@ -117,7 +117,7 @@
 						<img style="width: 200px" src="./assets/single-responsibility-principle3.gif" />
 						<ul class="r-fit-text">
 							<li>
-								If statements/switch statements where each case represent one responsibility/reasons to change
+								If/switch statements where each case represent one responsibility (reasons to change)
 								<ul>
 									<li>Fix: extract the logic to a separate method or class</li>
 								</ul>
@@ -451,6 +451,29 @@ printFiltered(array, isOdd);
 					</section>
 
 					<section>
+						<h2>How to spot violations</h2>
+						<div>
+							A common code smell that frequently indicates an violation is the presence of type checking code within a code block that should be polymorphic.
+						</div>
+						<aside class="notes">
+						<div>
+							When this principle is violated, it tends to result in a lot of extra conditional logic scattered throughout the application, checking to see the specific type of an object.
+						</div>
+							For instance, if you have a foreach loop over a collection of objects of type Foo, and within this loop there is a check to see if Foo is in fact Bar (subtype of Foo), then this is almost certainly an LSP violation. If instead you ensure Bar is in all ways substitutable for Foo, there should be no need to include such a check.
+							https://deviq.com/principles/liskov-substitution-principle
+						</aside>
+					</section>
+
+					<section>
+						<h2>Some signs of violations</h2>
+						<ul>
+							<li>
+
+							</li>
+						</ul>
+					</section>
+
+					<section>
 						<h2>Benefits</h2>
 						<ul>
 							<li>
@@ -502,7 +525,13 @@ printFiltered(array, isOdd);
 							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
 						</aside>
 					</section>
-					
+
+					<section>
+						<h2>How to spot violations</h2>
+						<div>A very common violation of this principle is the partial implementation of interfaces or base class functionality, leaving unimplemented methods or properties to throw an exception (e.g. NotImplementedException).</div>
+						<div>In bulky interfaces, there are too many operations, but for most objects, these operations are not used.</div>
+					</section>
+
 					<section>
 						<h2>Benefits</h2>
 						<ul>
@@ -529,6 +558,16 @@ printFiltered(array, isOdd);
 						<blockquote style="font-size: 0.7em">
 							Objects should not instantiate their dependencies, but they should be passed to them.
 						</blockquote>
+					</section>
+
+					<section>
+						<h2>How to spot violations</h2>
+						<ul>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Some signs of violations</h2>
 					</section>
 
 					<section>
