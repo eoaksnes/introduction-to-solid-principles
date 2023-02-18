@@ -17,6 +17,17 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
+					<h2>SOLID</h2>
+					<div>A term describing a collection of design principles for good code that was coined by Robert C. Martin also known as Uncle Bob.</div>
+					<img src="./assets/clean-books.png" />
+				</section>
+
+				<section>
+					<h2>Disclaimer</h2>
+					<div>These are principles, not laws!</div>
+				</section>
+
+				<section>
 					<section>
 						<h2>Single responsibility principle</h2>
 						<img src="./assets/single-responsibility-principle2.png" />
@@ -24,34 +35,47 @@
 
 					<section>
 						<blockquote>
-							A class should have only one responsibility and there should be only one reason why you want to change the class. Do one thing and do it well!
+							A class should have only one responsibility and there should be only one reason why you want to change the class.
 						</blockquote>
-						<img style="width: 200px" src="./assets/single-responsibility-principle.png" />
 						<aside class="notes">
+							If a Class has many responsibilities, it increases the possibility of bugs because making changes to one of its responsibilities, could affect the other ones without you knowing.
 						</aside>
 					</section>
 
 					<section>
-					  <h3>Is this correct?</h3>
+						<h2>What does that mean?</h2>
+						<div>Do one thing and do it well!</div>
+					<aside class="notes">
+						<div>“…You had one job” - Loki to Skurge in Thor: Ragnarok</div>
+						<div><a href="https://www.youtube.com/watch?v=4Y0tOi7QWqM">“Fits In My Head“</a> - Dan North</div>
+
+						Write classes so that your code fits in your head.
+					</aside>
+					</section>
+
+					<section>
+					  <h3>Is this a violation?</h3>
 					  <div class="mermaid">
 						<pre>
 						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
 						  classDiagram
 							class Person{
 							  +String name
-							  -save()
+							  -save_db()
 							}
 						</pre>
 					  </div>
-					  <div>This Person class has two jobs</div>
+					  <div>This Person class has two jobs?</div>
+					  <aside class="notes">
 					  <ul>
-						  <li>Manage the person’s property.</li>
-						  <li>Store the person in the database.</li>
-					  </ul>
+						  <li>Manage the person’s property</li>
+						  <li>Store the person in the database</li>
+					   </ul>
+					  </aside>
 					</section>
 
 					<section>
-					  <h3>Is this correct?</h3>
+					  <h3>Better?</h3>
 					  <div class="mermaid">
 						<pre>
 						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
@@ -65,28 +89,53 @@
 							}
 						</pre>
 					  </div>
-					  <div>Separate the Person class into two classes.</div>
+					  <aside class="notes">
+					  	<div>Separate the Person class into two classes.</div>
 						<ul>
 							<li>The Person class is responsible for managing the person’s properties.</li>
 							<li>The PersonDB class is responsible for storing the person in the database.</li>
 						</ul>
-					  <aside class="notes">
 					  </aside>
+					</section>
+
+					<section>
+						<h2>Guideline</h2>
+						<div>Gather together the things that change for the same reasons. Separate those things that change for different reasons.</div>
+						<img style="width: 200px" src="./assets/single-responsibility-principle.png" />
+						<aside class="notes"> A simple way to implement this is to group together methods and attributes that are going to change for the same reason. This allows us to write modular code that is easily maintainable and testable.</aside>
 					</section>
 
 					<section>
 						<h2>How to spot violations</h2>
 						<div>
-							When designing classes, you should put related methods that have the same reason for change together. In other words, you should separate classes if they change for different reasons.
+							If you describe what a piece of code does with an “AND”, it’s probably violating the principle.
 						</div>
 					</section>
 
 					<section>
 						<h2>Some signs of violations</h2>
+						<img style="width: 200px" src="./assets/single-responsibility-principle3.gif" />
 						<ul class="r-fit-text">
-							<li>If statements and switch statements (can have multiple reasons to change where each case represent one responsibility)</li>
-							<li>Monster methods (does more than one thing)</li>
-							<li>God class (everything in a single class)</li>
+							<li>
+								If statements/switch statements where each case represent one responsibility/reasons to change
+								<ul>
+									<li>Fix: extract the logic to a separate method or class</li>
+								</ul>
+							</li>
+							<li>
+								Monster methods that does more than one thing
+								<ul>
+									<li>Fix: split it into multiple methods or classes that do just one thing</li>
+								</ul>
+							</li>
+							<li>
+								God class that contains everything in a single class
+								<ul>
+									<li>
+										Fix: split into specialized classes that handle clear use cases
+									</li>
+								</ul>
+							</li>
 						</ul>
 					</section>
 
@@ -111,9 +160,12 @@
 					<section>
 						<h2>References</h2>
 						<ul>
-							<li>https://konstantinlebedev.com/solid-in-react/</li>
+							<li>React: https://konstantinlebedev.com/solid-in-react/</li>
 							<li>https://ducmanhphan.github.io/2020-01-17-Understanding-about-SOLID-part-1/</li>
 							<li>https://www.pythontutorial.net/python-oop/python-single-responsibility-principle/</li>
+							<li>https://www.robertopiva.pro/2016/12/30/how-to-spot-single-responsibility-principle-violation.html</li>
+							<li>https://www.linkedin.com/pulse/spotting-single-responsibility-violations-code-stuart-dobson/</li>
+							<li>Patterns: https://ericbackhage.net/clean-code/solid-the-single-responsibility-principle/</li>
 						</ul>
 					</section>
 				</section>
@@ -127,7 +179,6 @@
 						<blockquote>
 							The open-closed principle states that a class, method, and function should be open for extension but closed for modification.
 						</blockquote>
-						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
 						<aside class="notes">
 							Robert C. Martin considered this principle "the most important principle of object-oriented design"
 						</aside>
@@ -136,12 +187,15 @@
 					<section>
 						<h2>But what does that mean?</h2>
 						<blockquote>
+							Classes should be extendable, but not modifiable.
+						</blockquote>
+						<blockquote>
 							Simply, it means that if your business requirements change you shouldn’t modify the existing code (closed for modifications). Instead, you should add a new code that extends the existing code without affecting it (open for extension).
 						</blockquote>
 					</section>
 
 					<section>
-						<h2>How can this be achieved?</h2>
+						<h2>Guideline</h2>
 						<ul class="r-fit-text">
 							<li>
 								 The object-oriented programming way to do this is using inheritance: create a subclass and override any desired methods and properties.
@@ -150,6 +204,7 @@
 								An elegant way to avoid breaking the principle, if applicable, is to use interfaces as parameters for classes and implement our logic using those interfaces (strategy pattern).
 							</li>
 						</ul>
+						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
 						<aside class="notes">
 							 Use the <a href="https://forums.kodeco.com/t/how-is-strategy-pattern-different-from-the-open-closed-principle/66239/3">strategy pattern</a>.
 							https://dev.to/abh1navv/how-solid-is-your-code-open-closed-principle-3k68
@@ -162,7 +217,7 @@
 					</section>
 
 					<section>
-					  <h3>Is this correct?</h3>
+					  <h3>Is this a violation?</h3>
 					  <div class="mermaid">
 						<pre>
 						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
@@ -211,6 +266,7 @@
 					</section>
 
 					<section>
+						<h2>Better?</h2>
 						<div class="mermaid">
 						<pre>
 						  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
@@ -345,10 +401,17 @@ if __name__ == '__main__':
 					</section>
 
 				</section>
+
 				<section>
-					<section>Liskov’s substitution principle</section>
+					<section>
+						Liskov’s substitution principle
+					<img src="./assets/liskov-substitution-principle2.webp"/>
+					</section>
 
 					<section>
+						<blockquote>
+							Objects in a program should be replaceable with instances of their subtypes <b>without altering the correctness</b> of the program.
+						</blockquote>
 						<blockquote>
 							If a derived class is to be implemented, the base class must be extended without changing the behavior of the base function
 						</blockquote>
@@ -359,6 +422,31 @@ if __name__ == '__main__':
 						<div>
 							In simpler terms, subclasses must behave like base classes.
 						</div>
+						<div>
+							If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
+						</div>
+					</section>
+
+					<section>
+						<h2>Typescript</h2>
+						<pre>
+							<code class="hljs javascript" data-trim data-line-numbers>
+const isEven = (x: number) : boolean => x % 2 == 0;
+const isOdd = (x: number) : boolean => x % 2 == 1;
+
+const printFiltered = (arr: number[], filterFunc: (int) => boolean) => {
+ arr.forEach((item) => {
+   if (filterFunc(item)) {
+     console.log(item);
+   }
+ })
+}
+
+const array = [1, 2, 3, 4, 5, 6];
+printFiltered(array, isEven);
+printFiltered(array, isOdd);
+							</code>
+						</pre>
 					</section>
 
 					<section>
@@ -367,15 +455,24 @@ if __name__ == '__main__':
 							<li>
 								 Security that an implementation can be replaced without changing its behavior.
 							</li>
+							<li>
+								This principle aims to enforce consistency so that the parent Class or its child Class can be used in the same way without any errors.
+							</li>
 						</ul>
 					</section>
 
 				</section>
 
 				<section>
-					<section>Interface Segregation Principle</section>
+					<section>
+						Interface Segregation Principle
+						<img src="./assets/interface-sgregation-principle2.webp"/>
+					</section>
 
 					<section>
+						<blockquote>
+							Many client-specific interfaces are better than one general-purpose interface.
+						</blockquote>
 						<blockquote>
 							Each class should be focused on one aspect or topic only
 						</blockquote>
@@ -383,13 +480,15 @@ if __name__ == '__main__':
 
 					<section>
 						<h2>What does that mean?</h2>
+						<div>Keep your interfaces the smallest you can. No client should be forced to depend on methods it does not use.</div>
+						<div>Clients should not be forced to depend on methods that they do not use.</div>
 						<div>
 							The Interface Segregation Principle deals with the separation or decoupling of classes. In the Open-Closed Principle, we learned to work with interfaces. However, interfaces are not without problems either, as they usually tend to get bigger and bigger. As a result, it becomes increasingly difficult to provide a complete implementation as more and more code needs to be added.
 						</div>
 					</section>
 
 					<section>
-						<h2>The solution?</h2>
+						<h2>Guideline</h2>
 						<div>
 							Do not let interfaces become large in the first place and divide them into many small interfaces beforehand. This allows much more targeted interfaces to be defined externally.
 						</div>
@@ -398,11 +497,7 @@ if __name__ == '__main__':
 					<section>
 						<h2>Benefits</h2>
 						<ul>
-						️    <li>Simplifies reuse, testing, and maintenance by sharing responsibilities</li>
-						    <li>Insulates classes from errors by introducing clear boundaries</li>
-							<li>Allows functions to be replaced without having to understand related classes</li>
-							<li>Lowers cognitive load by isolating topics</li>
-							<li>Focuses attention on a single aspect</li>
+						️    <li>This principle aims at splitting a set of actions into smaller sets so that a Class executes ONLY the set of actions it requires.</li>
 						</ul>
 					</section>
 
@@ -411,11 +506,59 @@ if __name__ == '__main__':
 				<section>
 					<section>
 						<h2>Dependency Inversion Principle</h2>
+						<img src="./assets/dependency-inversion-principle2.webp"/>
 					</section>
 
 					<section>
-						<h2>Higher level classes should not depend on lower level classes</h2>
+						<blockquote>
+							High level modules <b>should not depend upon low level</b> modules. Both <b>should depend upon abstractions</b>.
+							Abstractions should not depend upon details. Details should depend upon abstractions.
+						</blockquote>
 					</section>
+
+					<section>
+						<h2>What does this mean?</h2>
+						<div>Objects should not instantiate their dependencies, but they should be passed to them.</div>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul>
+							<li>It decouples the dependencies.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>The principles</h2>
+					<table  class="r-fit-text">
+					  <tr>
+						<td>Single responsibility</td>
+						<td>Don’t mix unrelated responsibilities</td>
+					  </tr>
+						<tr>
+							<td>Open-closed</td>
+							<td>When adding new features, avoid doing a lot of changes in the existing code</td>
+						</tr>
+						<tr>
+							<td>Liskov’s substitution</td>
+							<td>When adding new features, avoid doing a lot of changes in the existing code</td>
+						</tr>
+						<tr>
+							<td>Interface Segregation</td>
+							<td>When using an interface, don’t make me implement methods that don’t make sense</td>
+						</tr>
+						<tr>
+							<td>Dependency Inversion Principle</td>
+							<td>Objects should not instantiate their dependencies, but they should be passed to them.</td>
+						</tr>
+					</table>
+				</section>
+
+				<section data-visibility="hidden">
+					<h2>STUPID</h2>
+					<div>singleton invasion, tight coupling, untestability, premature optimization, indescriptive naming and duplication</div>
+					http://slides.williamdurand.fr/from-stupid-to-solid-code/#/2
 				</section>
 
 				<section>
@@ -426,6 +569,12 @@ if __name__ == '__main__':
 						</li>
 						<li>
 							https://www.pythontutorial.net/python-oop/python-open-closed-principle/
+						</li>
+						<li>
+							https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
+						</li>
+						<li>
+							https://codeburst.io/understanding-solid-principles-open-closed-principle-e2b588b6491f
 						</li>
 					</ul>
 				</section>
