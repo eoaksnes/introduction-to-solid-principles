@@ -178,7 +178,7 @@
 
 					<section>
 						<blockquote style="font-size: 0.7em">
-							A software module (can be a class or method) should be open for extension but closed for modification.
+							A software entity (can be a system, module, class or method etc.) should be <b>open for extension</b>, but <b>closed for modification</b>.
 						</blockquote>
 						<div>
 						<img style="height: 40px" src="./assets/dropdown.png" />
@@ -194,6 +194,45 @@
 					<section>
 						<h2>Guideline</h2>
 						<ul class="r-fit-text">
+							<ul>
+								<li>
+									How we can extend the functionality? Rely on abstractions!
+									<ul>
+										<li>
+											By using <b>inheritance.</b>
+											<ul>
+												<li>
+													Create a superclass and for the different implementation we create it's child classes which extends the functionality of a superclass.
+												</li>
+											</ul>
+										</li>
+										<li>
+											By using <b>interfaces (polymorphism)</b> through compositional design patterns like the Strategy pattern.
+											<ul>
+												<li>
+													Here, instead of superclass we use interface that allow different implementations which we can easily substitute without changing the code.
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</ul>
+						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
+						<div>
+						<a style="font-size: 0.5em" href="http://www.cs.sjsu.edu/~pearce/modules/lectures/ood/principles/ocp.htm">Inheritance vs polymorphism</a>
+						</div>
+						<aside class="notes">
+							Generally, you achieve this by referring to abstractions for dependencies, such as interfaces or abstract classes, rather than concrete classes. We can add Functionality by creating new classes that implement the interfaces.
+
+							https://www.google.com/search?q=%22open-close+principle%22+inheritance+vs+interfaces&rlz=1C5GCEM_enNO966NO966&sxsrf=AJOqlzWn6HK6vmxX1v_nJ187sTgq2flySg:1676730721150&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjwj5LYpJ_9AhXNcvEDHVDmDOcQ_AUoAnoECAEQBA&biw=1792&bih=925&dpr=2#fpstate=ive&vld=cid:484c5469,vid:BGYXxa_4ef8
+							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
+							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
+							https://www.youtube.com/watch?v=oGbpFRuHGfw
+							<div>
+								 Use of inheritance or through compositional design patterns like the Strategy pattern.
+							</div>
+							<ul>
 							<li>
 								 The object-oriented programming way to do this is using inheritance
 								<ul>
@@ -209,10 +248,6 @@
 								</ul>
 							</li>
 						</ul>
-						<img style="width: 200px" src="./assets/open-closed-principle2.png" />
-						<aside class="notes">
-							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
-							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
 						</aside>
 					</section>
 
@@ -388,7 +423,7 @@ if __name__ == '__main__':
 					<section>
 						<h2>References</h2>
 						<ul class="r-fit-text">
-							<li>https://blog.mayallo.com/open-closed-principle-the-hard-parts</li>
+							<li>Plugin architecture: https://blog.mayallo.com/open-closed-principle-the-hard-parts</li>
 							<li>https://thevaluable.dev/open-closed-principle-revisited/</li>
 							<li>https://stackoverflow.com/questions/59016/what-is-the-meaning-and-reasoning-behind-the-open-closed-principle</li>
 							<li>https://www.devonblog.com/software-development/solid-violations-in-the-wild-the-open-closed-principle/</li>
