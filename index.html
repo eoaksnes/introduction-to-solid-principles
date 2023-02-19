@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>SOLID</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -35,29 +35,137 @@
 
 					<section>
 						<blockquote style="font-size: 0.7em">
-							A class should have only one responsibility and there should be only one reason why you want to change the class.
+							A class, function, or module should have a single responsibility. They all should have only one reason to change.
 						</blockquote>
 						<div>
 						<img style="height: 40px" src="./assets/dropdown.png" />
 						</div>
 						<blockquote style="font-size: 0.7em">
+							If you can think of more than one reason to change a class (or module, or function, or ...), it has multiple responsibilities and thus breaks the principle.
+							A module should be responsible to one, and only one, actor.
 							Do one thing and do it well!
 						</blockquote>
 						<aside class="notes">
 							<ul>
-								<li>“…You had one job” - Loki to Skurge in Thor: Ragnarok</li>
-								<li><a href="https://www.youtube.com/watch?v=4Y0tOi7QWqM">“Fits In My Head“</a> - Dan North</li>
-								<li>Write classes so that your code fits in your head.</li>
-								<li>If a Class has many responsibilities, it increases the possibility of bugs because making changes to one of its responsibilities, could affect the other ones without you knowing.</li>
+								<li>Each class (or module, or function, or ...) should be responsible for a single well-defined part of the functionality of the program, and that part of the functionality should be completely encapsulated within the class (or module, or function, or ...).</li>
+								<li>Is applicable on all levels of the system.</li>
 							</ul>
 						</aside>
 					</section>
 
 					<section>
 						<h2>Guideline</h2>
-						<div>Gather together the things that change for the same reasons. Separate those things that change for different reasons.</div>
+						<div class="r-fit-text">Think about what each class (or module, or function, or ...) is supposed to do. Gather together the things that change for the same reasons (put code that different actors depend on into close proximity). Separate those things that change for different reasons (separate the code that different actors depend on).</div>
 						<img style="width: 200px" src="./assets/single-responsibility-principle.png" />
-						<aside class="notes"> A simple way to implement this is to group together methods and attributes that are going to change for the same reason. This allows us to write modular code that is easily maintainable and testable.</aside>
+						<img src="./assets/the-pragmatic-programmer.png" />
+						<aside class="notes">
+							<ul>
+								<li>
+									Cohesion implies how strongly related and focused the various responsibilities of a module are
+								</li>
+								<li>
+									As a side effect, you will have better names what will improve readability of the system.
+								</li>
+
+								<li>
+									The term module refers to a cohesive set of functions and data structures that are tightly bound together to serve a single purpose. Cohesion is the force that binds together the code responsible to a single actor.
+									ref: https://kessler.tech/software-architecture/solid/
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Example</h2>
+						<img src="./assets/single-responsibility-principle10.png">
+						<aside class="notes">
+							ref: https://github.com/serodriguez68/clean-architecture/blob/master/part-3-design-principles.md
+						</aside>
+					</section>
+
+					<section>
+						<h2>Introduce a Facade</h2>
+						<img src="./assets/single-responsibility-principle11.png">
+						<div>Move each actor’s needs to own class</div>
+					</section>
+
+					<section>
+						<h2>Putting the principle into practise</h2>
+						<ul class="r-fit-text">
+							<li>
+								Module level
+								<ul>
+									<li>
+										Group classes based on business domains, features they implement (e.g. vertical slice architecture) or any other logical seperation
+									</li>
+								</ul>
+							</li>
+							<li>
+								Class level
+								<ul>
+									<li>
+										Methods that are of similar nature (change together) are grouped in the same class.
+									</li>
+								</ul>
+							</li>
+							<li>
+								Method level
+								<ul>
+									<li>
+										Make sure that the method is only doing one thing and one thing only. A method that has many paths of execution, has many invocations to other methods is generally an indication that the method is having to many purposes.
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>
+									Vertical slice architecture: Things that change together (features) belong together. That’s what Vertical Slice Architecture is about. Stop focusing and organizing by technical concern but rather start focusing and organize by the features and capabilities of your system.
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul class="r-fit-text">
+							<li>
+								The code is easier to understand
+								<ul>
+									<li>
+										We spend 90% of our time as software developer reading code, so it’s pretty important to be able to understand it and reason about it very fast. Clear separation means you know where to go when one aspect needs to change. <a href="https://www.youtube.com/watch?v=4Y0tOi7QWqM">“Fits In My Head“</a> - Dan North
+									</li>
+								</ul>
+							</li>
+							<li>The code is easier to test (less test cases)</li>
+							<li>The code is less fragile (changes are isolated) and therefore easier to maintain</li>
+							<li>The code is more reusable (the code should be reusable without modification)</li>
+							<li>The number of merge conflicts is reduced when multiple people are working with the codebase</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>
+									If a class has many responsibilities, it increases the possibility of bugs because making changes to one of its responsibilities, could affect the other ones without you knowing.
+								</li>
+								<li>
+									any bug introduced to the particular class affects less parts of the system (and organization as a whole)
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Examples</h2>
+					</section>
+
+					<section>
+						<h2>How to spot violations</h2>
+						<div>
+							If you describe what a piece of code does with an “AND”, it’s probably violating the principle.
+						</div>
+						<div>
+							If you’re saying “OR”, it’s even worse, because your code then has responsibilities which aren’t related to each other!
+						</div>
 					</section>
 
 					<section>
@@ -72,8 +180,8 @@
 							}
 						</pre>
 					  </div>
-					  <div>This Person class has two jobs?</div>
 					  <aside class="notes">
+					  <div>This Person class has two responsibilities?</div>
 					  <ul>
 						  <li>Manage the person’s property</li>
 						  <li>Store the person in the database</li>
@@ -106,10 +214,50 @@
 					</section>
 
 					<section>
-						<h2>How to spot violations</h2>
-						<div>
-							If you describe what a piece of code does with an “AND”, it’s probably violating the principle.
-						</div>
+						<h2>Is this a violation?</h2>
+						<pre>
+						<code class="hljs python" data-trim data-line-numbers>
+class Burglar:
+    def __init__(self):
+        self._artifacts = []
+
+    def steal(self, artifact: str):
+        print("Putting on the invisibility cloak.")
+        print("Taking the artifact.")
+        self._artifacts.append(artifact)
+        print("Removing the invisibility cloak.")
+
+bilbo = Burglar()
+bilbo.steal("Arkenstone")
+						</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Better</h2>
+						<pre>
+						<code class="hljs python" data-trim data-line-numbers>
+class Burglar:
+    def __init__(self):
+        self._artifacts = []
+
+    def steal(self, artifact: str):
+        print("Taking the artifact.")
+        self._artifacts.append(artifact)
+
+    def cloak(self):
+        print("Putting on the invisibility cloak.")
+
+    def remove_cloak(self):
+        print("Removing the invisibility cloak.")
+
+
+bilbo = Burglar()
+bilbo.cloak()
+bilbo.steal("Arkenstone")
+bilbo.remove_cloak()
+						</code>
+						</pre>
 					</section>
 
 					<section>
@@ -136,24 +284,9 @@
 									</li>
 								</ul>
 							</li>
-						</ul>
-					</section>
-
-					<section>
-						<h2>Benefits</h2>
-						<ul class="r-fit-text">
 							<li>
-								The code is easier to understand (does only one thing)
-								<ul>
-									<li>
-										We spend 90% of our time as software developer reading code, so it’s pretty important to be able to understand it and reason about it very fast.
-									</li>
-								</ul>
+								Multiple unit tests due to multiple execution paths
 							</li>
-							<li>The code is easier to test (less test cases)</li>
-							<li>The code is less fragile (changes are isolated) and therefore easier to maintain</li>
-							<li>The code is more reusable (the code should be reusable without modification)</li>
-							<li>The code becomes more decoupled</li>
 						</ul>
 					</section>
 
@@ -168,7 +301,7 @@
 
 					<section>
 						<blockquote style="font-size: 0.7em">
-							A software entity (can be a system, module, class or method etc.) should be <b>open for extension</b>, but <b>closed for modification</b>.
+							Classes, modules, or functions should be open for extensibility but closed for modification.
 						</blockquote>
 						<div>
 						<img style="height: 40px" src="./assets/dropdown.png" />
@@ -178,6 +311,33 @@
 						</blockquote>
 						<aside class="notes">
 							Robert C. Martin considered this principle "the most important principle of object-oriented design"
+							Although, bug fixing is okay.
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<img src="./assets/open-close.png" />
+					</section>
+
+					<section>
+						<h2>Example</h2>
+						<div style="font-size: 0.8em;">Generate reports. Supporting XML and HTML reports, but we got a new requirement that PDF version is needed as well.</div>
+						<div style="font-size: 0.8em;">Naive approach:</div>
+						<pre>
+							<code class="hljs python" data-trim data-line-numbers>
+if xml:
+  generate_xml_report
+else if html:
+  generate_html_report
+else:
+  ....
+							</code>
+						</pre>
+						<div style="font-size: 0.8em;">
+							To add a PDF version we would have to <b>add a new else if block to the existing code.</b> How can we make this code better? What are the techniques to make this code open for extension and closed for modification?
+						</div>
+						<aside class="notes">
+							Let’s imagine we are are generating some kinds of reports in our application. For now, we are generating..
 						</aside>
 					</section>
 
@@ -186,29 +346,19 @@
 						<ul class="r-fit-text">
 							<ul>
 								<li>
-									How we can extend the functionality? Rely on abstractions!
+									How we can extend the functionality?
 									<ul>
 										<li>
-											By using <b>inheritance.</b>
-											<ul>
-												<li>
-													Create a superclass and for the different implementation we create it's child classes which extends the functionality of a superclass.
-												</li>
-											</ul>
+										   Inheritance
 										</li>
 										<li>
-											By using <b>interfaces (polymorphism)</b> through compositional design patterns like the Strategy pattern.
-											<ul>
-												<li>
-													Here, instead of superclass we use interface that allow different implementations which we can easily substitute without changing the code.
-												</li>
-											</ul>
+											Composition and interfaces
 										</li>
 										<li>
-											 By using <b>function parameters</b>
+											Parameters
 											<ul>
 												<li>
-													By passing arguments to a function, we can change its functionality. Could be a function passed as a parameter to another function. Composition to create new behaviors from previously defined functions and higher-order functions (components) to change functionality at runtime. The ideal choice in functional programming.
+													Allow client to control behavior specifics via a parameter (passing a state string, etc. and combined with lambdas can be a very powerful approach)
 												</li>
 											</ul>
 										</li>
@@ -221,16 +371,64 @@
 						<a style="font-size: 0.5em" href="http://www.cs.sjsu.edu/~pearce/modules/lectures/ood/principles/ocp.htm">Inheritance vs polymorphism</a>
 						</div>
 						<aside class="notes">
-							Generally, you achieve this by referring to abstractions for dependencies, such as interfaces or abstract classes, rather than concrete classes. We can add Functionality by creating new classes that implement the interfaces.
-
-							https://www.google.com/search?q=%22open-close+principle%22+inheritance+vs+interfaces&rlz=1C5GCEM_enNO966NO966&sxsrf=AJOqlzWn6HK6vmxX1v_nJ187sTgq2flySg:1676730721150&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjwj5LYpJ_9AhXNcvEDHVDmDOcQ_AUoAnoECAEQBA&biw=1792&bih=925&dpr=2#fpstate=ive&vld=cid:484c5469,vid:BGYXxa_4ef8
-							https://www.linkedin.com/pulse/solid-design-principles-open-closed-principle-ocp-amritpal-singh/
-							https://ericbackhage.net/clean-code/solid-the-open-closed-principle/
-							https://www.youtube.com/watch?v=oGbpFRuHGfw
-							<div>
-								 Use of inheritance or through compositional design patterns like the Strategy pattern.
-							</div>
 							<ul>
+								<li>If MySubclass is a subclass of MyClass, you should be able to replace instances of MyClass with MySubclass without breaking anything. </li>
+								<li>
+									Rely on abstractions!
+								</li>
+								<li>
+									Example 1: Instead of modifying existing code, you can use inheritance to allow for different implementations of a particular component.
+									For instance, instead of changing the behavior of a Vehicle class, you can create a subclass of Vehicle called Car and provide it with its own implementation.
+								</li>
+								<li>
+									Example 2: Instead of making changes to existing code, you can use interfaces and abstract classes to allow for different implementations of a particular component.
+									For instance, instead of changing the behavior of a Shape class, you can create an abstract class called Shape and provide it with an abstract method called draw().
+									Then, create a subclass of Shape for each type of shape and provide it with its own implementation of the draw() method.
+								</li>
+							</ul>
+							<ul>
+								<li>
+									In this approach, instead of setting your new functionality directly in the main class, you move it to another class and then reference this new class into the main class by Dependency Injection.
+									And any injected class must implement an interface.
+									Once the new class implements this interface correctly, the main class can eventually use its functionality.
+									That’s how can you use composition and interfaces over the inheritance.
+									The main benefit of this approach is achieving Polymorphism which in turn achieves the Loose Coupling.
+									ref: https://blog.mayallo.com/open-closed-principle-the-hard-parts
+								</li>
+								<li>
+									Inheriting from (abstract) classes or interfaces and overriding methods
+								</li>
+								<li>
+									Maybe: The ideal choice in functional programming. Composition to create new behaviors from previously defined functions (higher order functions).
+								</li>
+							</ul>
+							<ul>
+								<li>
+									Historically the solution to this problem was to use inheritance.
+									We would have basic Report class and the XMLReport and HTMLReport classes that inherit from it.
+									If we wanted to add PDF report, we would create another subclass of a Report class called PDFReport.
+									We achieved our goal here - we added a new feature and we didn’t have to change existing code.
+									This way of solving things in not actually recommended anymore.
+									Inheritance entails some consequences and we should be very conservative using it.
+								</li>
+							</ul>
+							<ul>
+								<li>
+									By using <b>interfaces (polymorphism)</b> through compositional design patterns like the Strategy pattern.
+									<ul>
+										<li>
+											Here, instead of superclass we use interface that allow different implementations which we can easily substitute without changing the code.
+										</li>
+									</ul>
+								</li>
+								<li>
+								Delegation
+								<ul>
+									<li>
+										Extend from class or its interface, store object of the original class and delegate to it as needed
+									</li>
+								</ul>
+							</li>
 							<li>
 								 The object-oriented programming way to do this is using inheritance
 								<ul>
@@ -250,7 +448,108 @@
 					</section>
 
 					<section>
-						<h2>Possible to extend?</h2>
+						<h2>Inheritance</h2>
+						<div class="r-fit-text">
+							Create a abstract superclass and for the different implementation we create it's child classes which extends the functionality of a superclass (the template method pattern).
+						</div>
+						<img style="max-height: 400px" src="./assets/template-method.png" />
+						<aside class="notes">
+							<ul>
+								<li>
+									Template Method is a behavioral design pattern that defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.
+								</li>
+								<li>
+									create an abstract class containing the base logic, and create implementations of it for different behavior.
+									If you want to add new behavior, you simply create a new class, derive from the base class and add the functionality.
+									The base class remains the same.
+									ref: https://www.devonblog.com/software-development/solid-violations-in-the-wild-the-open-closed-principle/
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Composition and interfaces</h2>
+						<div class="r-fit-text">
+							Use interface that allow different implementations which we can easily substitute without changing the code.
+							Allowing behavior to be changed by passing in different objects (strategy pattern, dependency injection).</div>
+						<img src="./assets/using-interface.png" />
+						<aside class="notes">
+							<ul>
+								<li>
+									One way is to create an interface (or abstract class) for the behavior,
+									implement the interface for a certain behavior and use the interface from the calling class.
+									This way, you can add or change behavior without having to touch the logic that uses the behavior.
+									You can use the Strategy Pattern for this.
+									Note: The difference consists in the fact that Strategy uses delegation while the Template Methods uses the inheritance.
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+
+					<section data-visibility="hidden">
+						<h2>Program by interface, not by implementation</h2>
+						<div>
+							What this basically means is that you should try to write your code so it uses an abstraction (abstract class or interface) instead of the implementation directly.
+						</div>
+						<aside class="notes">
+							The open-closed principle uses interfaces or abstract classes to allow different implementations which can be easily substituted without changing the code that uses them.
+							The interfaces are closed for modifications and new implementations can be provided to extend the functionality of the application.
+							The main benefit is that an interface introduces an additional layer of abstraction which enables loose coupling.
+							These interface implementations are independent of one another and do not need to share any code.
+							ref: https://pengeru.medium.com/open-closed-principle-explained-25fa3d04e281
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Abstraction via inheritance</h2>
+						<pre>
+						<code>
+class Report
+	@abstractmethod
+	generate_report()
+class PDFReport extends Report
+class HTMLReport extends Report
+class XMLReport extends Report
+	...
+					  </code>
+						</pre>
+						<aside class="notes">
+							<div>We would have basic <b>Report</b> class and the <b>XMLReport</b> and <b>HTMLReport</b> classes that inherit from it. If we wanted to add PDF report, we would create another subclass of a <b>Report</b> class called <b>PDFReport</b>.</div>
+							NOTE: This way of solving things in not actually recommended anymore.
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Abstraction via composition</h2>
+						<div>There is a design pattern that solves this problem and is called Strategy.</div>
+						<pre>
+						<code>
+class Report
+	generate_report()
+
+class Strategy:
+	do_algorithm() // Called from inside the generate_report
+class PDFFormatter extends Strategy:
+class HTMLFormatter extends Strategy:
+class XMLFormatter extends Strategy:
+	...
+
+report = Report(PDFFormatter())
+report.generate_report()
+						</code>
+						</pre>
+						<aside class="notes">
+							<div>Single <b>Report</b> class and a couple of strategies <b>HTMLFormatter</b>, <b>XMLFormatter</b>, <b>PDFFormatter etc</b>.</div>
+							<div> To generate a specific type of report we will have pass the strategy to the <b>Report</b> class (via dependency injection) and call a <b>generate_report</b> method.</div>
+							The way of generating report is decoupled from the report itself, so now we can add new kinds of reports without changing the existing code.
+							ref: http://www.rottensoftware.com/solid-open-closed-principle/
+						</aside>
+					</section>
+
+					<section>
+						<h2>How to extend?</h2>
 						<pre>
 							<code class="hljs javascript" data-trim data-line-numbers>
 class Logger {
@@ -271,6 +570,7 @@ logger.log();
 						<pre>
 							<code class="hljs javascript" data-trim data-line-numbers>
 class Logger {
+    // Opened for extensions by changing the message
     log(message: string) {
         console.log(message);
     }
@@ -285,7 +585,7 @@ logger.log('Hello');
 					</section>
 
 					<section>
-						<h2>Partial Abstraction via Inheritance</h2>
+						<h2>Abstraction via inheritance</h2>
 						<pre>
 							<code class="hljs javascript" data-trim data-line-numbers>
 class Logger {
@@ -320,10 +620,7 @@ logger.log();
 
 
 					<section>
-						<h2>Total Abstraction via Composition and Interfaces</h2>
-						<div>
-							The main benefit of this approach is achieving Polymorphism which in turn achieves the Loose Coupling.
-						</div>
+						<h2>Abstraction via composition and interfaces</h2>
 						<pre>
 							<code class="hljs javascript" data-trim data-line-numbers>
 interface ILogger {
@@ -358,6 +655,9 @@ logger.log();
 						<aside class="notes">
 							<ul>
 								<li>
+									The main benefit of this approach is achieving Polymorphism which in turn achieves the Loose Coupling.
+								</li>
+								<li>
 									In this approach, instead of setting your new functionality directly in the main class, you move it to another class and then reference this new class into the main class by Dependency Injection. And any injected class must implement an interface. Once the new class implements this interface correctly, the main class can eventually use its functionality. That’s how can you use composition and interfaces over the inheritance.
 								</li>
 								<li>
@@ -369,6 +669,123 @@ logger.log();
 							</ul>
 						</aside>
 					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul class="r-fit-text">
+							<li>Reduce testing of existing code.
+								<ul>
+									<li>
+										The less you change the existing code, the less it would introduce new bugs.
+									</li>
+								</ul>
+							</li>
+							<li>Reduce the cost of a business change requirement.</li>
+							<li>The design of a system should be simple and resistant to changes
+							<ul>
+								<li>
+									Note: but it does not mean that you need to create additional levels of abstraction without the need. Premature optimization can introduce uncessary complexity.
+								</li>
+							</ul></li>
+						</ul>
+						<aside class="notes">
+							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying (breaking) the existing code.
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Warning?</h2>
+						<div>Premature optimization can introduce uncessary complexity. If you extend the export class when you have just pdf then we are introducing unnecessary complexity</div>
+					</section>
+
+					<section>
+						<h2>Examples</h2>
+					</section>
+
+					<section>
+						<h2>How to spot violations</h2>
+						<div class="r-fit-text">You are violating this principle if you directly work with a concrete implementation instead of an abstraction. The violation becomes visible when you must extend existing code to accommodate new functionality.</div>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<div style="display: flex">
+						  <div style="flex: 50%;">
+						    <pre>
+							<code class="hljs java" data-trim data-line-numbers>
+public class GraphicEditor {
+    public void drawShape(Shape s) {
+        if (s.type == 1) {
+            drawRectangle(s);
+        } else if (s.type == 2) {
+            drawCircle(s);
+    }
+    public void drawCircle(Circle r) {...}
+    public void drawRectangle(Rectangle r) {....}
+}
+public class Shape {
+    int type;
+}
+public class Rectangle extends Shape {
+    public Rectangle() {
+        super.type = 1;
+    }
+}
+public class Circle extends Shape {
+    public Circle() {
+        super.type = 2;
+    }
+}
+							</code>
+						</pre>
+						  </div>
+						  <div style="flex: 50%;">
+							  <img src="./assets/open-close-graphic-bad.webp"/>
+						  </div>
+						</div>
+						<aside class="notes">
+							ref: https://pengeru.medium.com/open-closed-principle-explained-25fa3d04e281
+						</aside>
+					</section>
+
+					<section>
+						<h2>Better?</h2>
+						<div style="display: flex">
+						  <div style="flex: 50%;">
+						    <pre>
+							<code class="hljs java" data-trim data-line-numbers>
+public class GraphicEditor {
+    public void drawShape(Shape s) {
+        s.draw();
+    }
+}
+public interface Shape {
+    public void draw();
+}
+public class Rectangle implements Shape {
+    public void draw() {
+        //draw the rectangle
+    }
+}
+public class Circle implements Shape {
+    public void draw() {
+        //draw the circle
+    }
+}
+public class Oval implements Shape {
+    public void draw() {
+        //draw the oval
+    }
+}
+							</code>
+						</pre>
+						  </div>
+						  <div style="flex: 50%;">
+							  <img src="./assets/open-close-graphic-good.webp"/>
+						  </div>
+						</div>
+					</section>
+
 
 					<section>
 					  <h3>Is this a violation?</h3>
@@ -480,37 +897,192 @@ if __name__ == '__main__':
 						</code></pre>
 					</section>
 
-					<section data-visibility="hidden">
-						<blockquote>
-							The purpose of the open-closed principle is to make it easy to add new features (or use cases) to the system without directly modifying (breaking) the existing code.
-						</blockquote>
+					<section>
+					  <h3>Is this a violation?</h3>
+						<pre><code class="hljs java" data-trim data-line-numbers>
+class Payment {
+  public payWithCash(){
+    // handle cash pay logic here
+
+  public payWithCredit(){
+    // handle credit pay logic here
+  }
+}
+
+function makePayment(payMethod: string) {
+  const payment = new Payment();
+
+  if(payMethod === 'cash'){
+    payment.payWithCash();
+  } else if(payMethod === 'credit'){
+    payment.payWithCredit();
+  }
+}
+						</code></pre>
 					</section>
 
 					<section>
-						<h2>How to spot violations</h2>
-						<div class="r-fit-text">You are violating this principle if you directly work with a concrete implementation instead of an abstraction. The violation becomes visible when you must extend existing code to accommodate new functionality.</div>
+					  <h3>Better?</h3>
+						<pre><code class="hljs java" data-trim data-line-numbers>
+interface PaymentMethod {
+  pay() : boolean
+}
+
+class Cash implements PaymentMethod {
+  public pay(){
+    // handle cash pay logic here
+  }
+}
+
+class CreditCard implements PaymentMethod {
+  public pay(){
+    // handle credit pay logic here
+  }
+}
+
+function makePayment(payMethod: PaymentMethod) {
+  if(payMethod.pay()){
+    return true;
+  }
+  return false;
+}
+						</code></pre>
+					</section>
+
+					<section data-visibility="hidden">
+					  <h3>Is this a violation?</h3>
+						<pre><code class="hljs java" data-trim data-line-numbers>
+public class CombinedAreaCalculator
+{
+    public double Area(object[] shapes)
+    {
+        double area = 0;
+        foreach (var shape in shapes)
+        {
+            if (shape is Rectangle)
+            {
+                Rectangle rectangle = (Rectangle)shape;
+                area += rectangle.Width * rectangle.Height;
+            }
+            if (shape is Circle)
+            {
+                Circle circle = (Circle)shape;
+                area += (circle.Radius * circle.Radius) * Math.PI;
+            }
+        }
+
+        return area;
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-visibility="hidden">
+					  <h3>Better?</h3>
+						<pre><code class="hljs python" data-trim data-line-numbers>
+public class CombinedAreaCalculator
+{
+    public double Area(Shape[] shapes)
+    {
+        double area = 0;
+        foreach (var shape in shapes)
+        {
+            area += shape.Area();
+        }
+        return area;
+    }
+}
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+for shape in shapes:
+  if shape == "square":
+    total_area += area_square(shape);
+  else if shape == "circle":
+    total_area += area_circle(shape)
+  else if shape == "recatangle":
+    total_area += area_rectangle(shape)
+						</pre>
+					</section>
+
+					<section>
+						<h2>Better?</h2>
+						<pre>
+for shape in shapes:
+  total_area += shape.area()
+						</pre>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+						<code class="hljs python" data-trim data-line-numbers>
+class Orc:
+    def attack(self, weapon: str) -> None:
+        if weapon == "sword":
+            print("The orc swings the sword.")
+        elif weapon == "bow":
+            print("The orc shoots an arrow.")
+        else:
+            raise ValueError(f"The orc doesn't have a {weapon}")
+
+azog = Orc()
+azog.attack("sword")
+
+						</code>
+						</pre>
+						<div>
+	What if we want the Orc to wield another weapon, we would need to change the attack method?
+						</div>
+					</section>
+
+					<section>
+						<h2>Better</h2>
+						<pre>
+						<code class="hljs python" data-trim data-line-numbers>
+class Orc:
+    def attack(self, weapon: Callable) -> None:
+        weapon()
+
+def sword():
+    print("The orc swings the sword.")
+
+def bow():
+    print("The orc shoots an arrow.")
+
+azog = Orc()
+azog.attack(sword)
+						</code>
+						</pre>
 					</section>
 
 					<section>
 						<h2>Some signs of violations</h2>
 						<ul class="r-fit-text">
-							<li>You have private methods that almost do the same thing (but with a slight variation in the implementation)</li>
-							<li>You use (a lot of) ifs to control behavior, e.g. doing something the old way or the new way.</li>
-							<li>You use an abstract class but check for the concrete implementation to control flow (methods that adjust logic based on instance types)</li>
+							<ul>
+								Would most likely have to make modification to existing code if
+								<ul>
+									<li>You have private methods that almost do the same thing (save_xml, save_db etc.)</li>
+									<li>You use (a lot of) ifs to control behavior e.g. doing something the old way or the new way</li>
+									<li>You use an abstract class but check for the concrete implementation to control flow</li>
+								</ul>
+							</ul>
 						</ul>
+						<aside class="notes">
+							<ul>
+								<li>
+									A good way to spot that you are violating this principle is to notice when you are using chain of if.. else.. Statement, this is usually a sign that your function is not open to any extension as you would have to make modification at this place if you were to add new functionality to this class.
+								</li>
+							</ul>
+							ref: https://www.devonblog.com/software-development/solid-violations-in-the-wild-the-open-closed-principle/
+						</aside>
 					</section>
 
 					<section>
-						<h2>Warning?</h2>
-						<div>Premature optimization can introduce uncessary complexity. If you extend the export class when you have just pdf then we are introducing unnecessary complexity</div>
-					</section>
-
-					<section>
-						<h2>Benefits</h2>
-						<ul class="r-fit-text">
-							<li>Reduce testing of existing code. The less you change the existing code, the less it would introduce new bugs.</li>
-							<li>Reduce the cost of a business change requirement.</li>
-						</ul>
+						<div>Design patterns</div>
 					</section>
 
 					<section>
@@ -552,26 +1124,674 @@ if __name__ == '__main__':
 
 					<section>
 						<blockquote style="font-size: 0.7em">
-							Objects in a program should be replaceable with instances of their subtypes <b>without altering the correctness</b> of the program.
+						 Let ϕ (x) be a property provable about objects x of type T. Then ϕ (y) should be true for objects y of type S where S is a subtype of T.
 						</blockquote>
 						<div>
 						<img style="height: 40px" src="./assets/dropdown.png" />
 						</div>
 						<blockquote style="font-size: 0.7em">
-							In simpler terms, subclasses must behave like base classes. If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
+							In other words, a program should have the ability to replace any instance of a parent class with an instance of one of its child classes without negative side effects.
 						</blockquote>
+						<aside class="notes">
+							In simpler term, an object (such as a class) may be replaced by a sub-object (such as a class that extends the first class) without breaking the program.
+							If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
+							In simpler term, an object inheriting from a base class, interface, or other abstraction must be semantically substitutable for the original abstraction.
+							  Wikipedia: An object (such as a class) may be replaced by a sub-object (such as a class that extends the first class) without breaking the program.
+						</aside>
 					</section>
 
-					<section>
-						<h2>Guideline</h2>
-						<div>
-						</div>
+					<section data-visibility="hidden">
+						<h2>Main idea</h2>
+						<div>This principles means that ClientClass, which depends on SuperClass, can work seamlessly with instances of both SuperClass and SubClass.</div>
+						<img src="/assets/liskov-substitution-principle-example2.svg" />
 						<aside class="notes">
+						<div>The short summary given above captures the main idea of LSP, but it is not self-sufficient by itself. It lacks a definition of practical rules that should be followed by developers in order to achieve such an interoperability between a superclass and its subclasses.</div>
 						</aside>
 					</section>
 
 					<section>
-						<h2>Typescript</h2>
+						<h2>Guideline</h2>
+						<ul class="r-fit-text">
+							<li>
+								Software (systems) should be built from interchangeable parts. Those parts should agree on a common contract, which enables those parts to be substituted one for another.
+								<ul>
+									<li>
+										The contract specifies the parameters, the return type, and what errors might be thrown. And with all of this at hand, you can implement logic that actually handles exactly this => Nothing more, nothing less.
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<aside class="notes">
+							This principle is also applicable to the architectural level.
+							Whether a software system provides classes and interfaces for other developers to instance it or services that respond to the same REST interface.
+							The LSP is applicable because there are users who depend on well-defined interfaces and on the substitutability of those interfaces implementations.
+
+							The principle explains how polymorphism should work, and not how it actually works, but how it should work.
+							Can be boiled down to a simpler definition:
+							If someone that writes base logic specifies that a CannotDoError can be thrown, only this error has to be handled when using that logic or deriving from it, and not the multitude of errors that anyone could come up with, next to that one.
+							As long as users agree on the contract, they won’t have any problems with unexpected behavior from your side. And this is pretty awesome because your software works as expected.
+							ref: https://oliverjumpertz.com/lsp-the-liskov-substitution-principle/
+						</aside>
+					</section>
+
+					<section>
+						<h2>Generic example</h2>
+						<img src="./assets/liskov-substitution-principle-generic.jpeg" />
+						<div class="r-fit-text">
+							The idea behind this principle is that if the <b>hierarchy is correctly implemented</b> (defined by some rules), the client class can work with instances of any of the subclasses without even noticing.
+							There is a <b>contract</b> between a given type and a client. Subclasses respect the <b>contracts</b> as they are defined by parent (type) classes. The type might be a generic interface definition, REST interface, an abstract class or an interface, not a class with the behavior itself. </div>
+						<aside class="notes">
+							The principle applies to the contract.
+							The contract may be a class or an interface (or lambda functions passed as arguments).
+							Any inherited object from this superclass or interface implementation class must follow the contract.
+							All subtypes must obey the behavioural contracts specified by their supertypes, or else they are not truly substitutable.
+							ref: https://www.datasciencecentral.com/liskov-s-substitution-principle-in-solid/
+							ref: https://stackoverflow.com/questions/12252363/does-liskov-substitution-principle-also-apply-to-classes-implementing-interfaces
+							ref: https://blacksheephacks.pl/what-is-the-liskov-substitution-principle/
+							<ul>
+								<li>
+									The principle also relates to the ideas behind designing by contract. By following the rules of this principle, the design will make sure that
+								</li>
+								<li>
+								LSP applies to the contract. The contract may be a class or an interface. It's not about an interface or a class. It's about a violation of the contract.
+							</li></ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Rules</h2>
+						<div class="r-fit-text">A set of practical rules that must be followed in order to achieve interoperability between the superclass and its subclasses can be found in the aforementioned paper <a href="http://reports-archive.adm.cs.cmu.edu/anon/1999/CMU-CS-99-156.pdf">Behavioral Subtyping Using Invariants and Constraints.</a></div>
+						<img style="width: 500px;" src="./assets/liskov-substitution-principle-rules.png" />
+						<div class="r-fit-text">This makes sure the callers can expect the sub-classes to behave and interact in the same way the super class does. This means one can substitute an object with an object of a sub-class, and expect it to behave the same way and fulfill its contract.</div>
+						<aside class="notes">
+							As you can see, the paper uses mathematical notation extensively, which makes it difficult to read and understand it without some (recent) mathematical background.
+							https://www.techyourchance.com/liskov-substitution-principle/
+							ref: https://php.watch/articles/php-lsp
+						</aside>
+					</section>
+
+					<section>
+						<h2>Some rules</h2>
+						<img style="width: 500px" src="./assets/php-lsp-chart.png" />
+						<ul class="r-fit-text">
+							<li>Subclass method parameter types must match or be more abstract than parent class method parameter types.</li>
+							<li>The return type in a method of a subclass must match or be a subtype of the return type of the parent class method.</li>
+							<li>A method in a subclass shouldn't throw types of exceptions that the base method isn't expected to throw.</li>
+							<li>...<a href="https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an">and more</a></li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Return types can be made narrower: Sub-classes can return sub-types or a smaller Union Types in the return type.</li>
+								<li>Parameters can be widened: Sub-classes must accept and handle all parameter types the parent method handles. But it can be widened to accept more types or parent types.</li>
+								<li>Property types cannot be changed.</li>
+							</ul>
+							ref: https://blog.mayallo.com/liskov-substitution-principle-isnt-complex-just-give-it-a-try
+						</aside>
+					</section>
+
+
+					<section data-visibility="hidden">
+						<h2>ADD?</h2>
+						https://www.engineerspock.com/2018/12/26/lsp/
+						<img src="./assets/liskov-substitution-principle-example.jpeg" />
+						<div class="r-fit-text">
+							 In simple words, a client consuming the superclass/interface shouldn’t care about the underneath concrete implementation. In fact, the client should not even know about it. Basically, rather than worrying about the structure of the class, the principle says to enforce a specific behavior to it.
+						</div>
+						<div class="r-fit-text">
+							Let’s pretend that we have a client which uses the API of interface B.
+							To summarize Liskov, suppose we have some type 'B' and a subtype 'A' and 'C'. If some property P is true for 'B', it must be true for 'A' and 'C'.
+							This means: 'B' defines an API and a public contract - and 'A' and 'C' has to uphold these properties, too!
+						</div>
+						<aside class="notes">
+							https://medium.com/@SwatiKp/liskovs-substitution-principle-let-s-discuss-something-other-than-squares-and-rectangles-2921ea05c095
+							There are two implementors of that interface B. It is implemented by classes A and C. Class C can be considered substitutable for class A if the client doesn’t observe any difference using the class C instead of A. From the client’s perspective, a client shouldn’t experience different behavior using different inheritors of the same base class or an interface.
+						</aside>
+					</section>
+
+					<section>
+						<h2>Benefits</h2>
+						<ul>
+							<li>
+								 Security that an implementation can be replaced without changing its behavior (IS-SUBSTITUTABLE-FOR)
+								<ul>
+									<li>In the early days to guide the use of subclass inheritance. Now it has turned into a much broader principle that helps define interfaces at the architectural level.</li>
+								</ul>
+							</li>
+						</ul>
+						<aside class="notes">
+							<div>
+								<li>Note: The principle is just about subtyping regardless this subtyping comes from inheritance or composition. </li>
+								<li>In general, the function signature (function parameters) and return type must be unchanged in the subclass.</li>
+							</div>
+							<div>
+								Can be sure that no unexpected behavior occurs through well defined contracts
+							</div>
+							<div>
+								To apply the theory of LSP in practice it is helpful to remember to honor inherited contracts,
+								protect inherited state and respect inherited conditions.
+								Finally, use tests and mock objects to demonstrate that a parent class can be replaced by any of its child classes.
+							</div>
+							<div>
+								Implementing swappable parent and child classes requires that we implement the same properties, methods and behaviors defined by the base classes we inherit from.
+							</div>
+							<div>
+								This principle aims to enforce consistency so that the parent Class or its child Class can be used in the same way without any errors.
+							</div>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Examples</h2>
+					</section>
+
+
+					<section data-visibility="hidden">
+						<h2>What is a subtype exactly?</h2>
+						<div>
+							In most object-oriented languages a subtype can either be a class extending another class, or a class implementing an interface.
+						</div>
+						<pre>
+							<code class="hljs php" data-trim data-line-numbers>
+interface Animal {}
+class Cat implements Animal {}
+class MaineCoon extends Cat {}
+
+// A class implementing an interface is considered to be a subclass of said interface.
+is_subclass_of(Cat::class, Animal::class); // bool(true)
+
+// A class extending another class is a subclass of said parent class.
+is_subclass_of(MaineCoon::class, Cat::class); // bool(true)
+
+// By extension, the child class is also considered to be a subclass of the interfaces
+// implemented by its parent class.
+is_subclass_of(MaineCoon::class, Animal::class); // bool(true)
+							</code>
+						</pre>
+						<aside class="notes">
+						So even if you never use inheritance, you’re technically still dealing with subtypes and thus the Liskov Substitution Principle whenever you implement an interface.
+							https://madewithlove.com/blog/software-engineering/liskov-substitution-principle-explained/
+						</aside>
+					</section>
+
+
+					<section data-visibility="hidden">
+						<h2>Defining/implementing interfaces</h2>
+						<ul>
+							<li>Be sure that the names are clear, and it does what it supposes to do</li>
+							<li>Error behavior is documented (public API vs comments inside code)</li>
+							<li>Make sure that all interactions (also wrong) is understood and tested</li>
+						</ul>
+						<aside class="notes">
+							Applies to all kinds of interfaces.
+							Class level, system level or anything between.
+						</aside>
+					</section>
+
+					<section>
+						<h2>How to spot violations?</h2>
+						<ul>
+							<li>Type checking</li>
+							<li>Null checks</li>
+							<li>NotImplementedExceptions</li>
+						</ul>
+						<div class="r-fit-text">
+							You can also perform the duck test: If it looks like a duck, quacks like a duck, but needs batteries – you probably have the wrong abstraction.
+						</div>
+						<img src="./assets/liskov-substitution-principle-duck.png" />
+						<aside class="notes">
+							FIX: https://bangjelkoski.com/blog/understand-and-use-solid-design-principles-with-typescript/
+							<div>
+								https://irian.to/blogs/liskov-substitution-principle/
+								If a thing looks like a duck and it quacks like a duck, then it better be a duck.
+								Suppose that your duck has a baby duck. The baby duckling also looks like a duck and quacks like a duck and it also... breathes fire. Whoopsie. That's not supposed to happen.
+								In this quack analogy, the duck is the parent class. It exhibits duck-like attributes. These duck-like attributes are parts of the duck contract (a duck contract sets up a certain expectation of what a duck class should be like). The duckling is the subclass. Being a descendent of a duck, you expect it to also exhibit duck-like attributes. However, this fire-breathing ability violates the contract because ducks don't breathe fire. This is a violation of the Liskov Substitution Principle.
+							</div>
+							HOW TO IDENTIFY VIOLATIONS OF LSP
+
+							Abstract methods do not apply to all implementations;
+							Lower level details become visible in high level policy;
+							Base classes need to know about their subclasses;
+							Clients of base classes need to know about the subclasses;
+							Details creep up the hierarchy.
+
+							<ul>
+								<li>Don’t ever add functionality to a subclass or parent class that prevents the subclass from being substitutable for the parent class.</li>
+								<li>Your parent classes should always have less functionality than their sub-classes. If your parent class has a feature that the sub-class can’t use, rethink your object hierarchy.</li>
+							</ul>
+							https://dev.to/satansdeer/liskov-substitution-principle-dfn
+							If you redefine a function in a subclass that is also present in the base class, the two functions should have the same behaviour. This does not mean that they must be mandatorily equal, but that the user should expect the same type of result, given the same input.
+							Note: Most of them are not very practical to break, but some of them may be tricky.
+							If an override method does nothing or just throws an exception, then you're probably violating the principle.
+							A common code smell that frequently indicates an violation is the presence of type checking code within a code block that should be polymorphic.
+
+							When this principle is violated, it tends to result in a lot of extra conditional logic scattered throughout the application, checking to see the specific type of an object.
+							For instance, if you have a foreach loop over a collection of objects of type Foo, and within this loop there is a check to see if Foo is in fact Bar (subtype of Foo), then this is almost certainly an LSP violation. If instead you ensure Bar is in all ways substitutable for Foo, there should be no need to include such a check.
+							https://deviq.com/principles/liskov-substitution-principle
+						</aside>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+						<code class="hljs python" data-trim data-line-numbers>
+from abc import ABC
+
+class MiddleEarthInhabitant(ABC):
+    def dance(self):
+        ...
+
+class Human(MiddleEarthInhabitant):
+    def dance(self):
+        print("Going wild on the dance floor.")
+
+class Hobbit(MiddleEarthInhabitant):
+    def dance(self):
+        print("Look at those big feet go.")
+
+class Party:
+    def __init__(self, guests: List[MiddleEarthInhabitant]):
+        self._guests = guests
+
+    def que_music(self):
+        for guest in self._guests:
+            guest.dance()
+						</code>
+						</pre>
+						<div class="r-fit-text">
+Now when we want to create an Orc, which is also a Middle Earth inhabitant, we hit a problem: Orcs are fighters, not dancers.
+						</div>
+					</section>
+
+					<section>
+						<h2>Better</h2>
+						<pre>
+						<code class="hljs python" data-trim data-line-numbers>
+from abc import ABC
+
+class MiddleEarthInhabitant(ABC):
+    ...
+
+class Dancer(ABC):
+    def dance(self):
+        ...
+
+class Human(MiddleEarthInhabitant, Dancer):
+    def dance(self):
+        print("Going wild on the dance floor.")
+
+
+class Hobbit(MiddleEarthInhabitant, Dancer):
+    def dance(self):
+        print("Look at those big feet go.")
+
+class Party:
+    def __init__(self, guests: List[Dancer]):
+        self._guests = guests
+
+    def que_music(self):
+        for guest in self._guests:
+            guest.dance()
+						</code>
+						</pre>
+						<div class="r-fit-text">
+ Create a separate interface (abstract base class in Python) and use that to create the party people.
+ Now we can create an Orc, which still is a MiddleEarthInhabitant, but he doesn’t have to dance.
+ 						</div>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+							<code  class="hljs python" data-trim data-line-numbers>
+class Duck(ABC):
+	@abstractmethod
+	def quack(self):
+		...
+
+	@abstractmethod
+	def walk(self):
+		...
+
+	@abstractmethod
+	def fly(self):
+		...
+
+class RubberDuck(Duck):
+	def quack(self):
+		print("Squeek")
+
+	def walk(self):
+		# This method in a sub-class is not implemented according to the expected behavior (refused bequest)
+		pass
+
+	def fly(self):
+		# This method in a sub-class is not implemented according to the expected behavior (refused bequest)
+		raise NoFlyException()
+						</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+							<code  class="hljs python" data-trim data-line-numbers>
+class Duck(ABC):
+	@abstractmethod
+	def quack(self):
+		...
+
+	@abstractmethod
+	def walk(self):
+		...
+
+	@abstractmethod
+	def fly(self):
+		...
+
+class RoboDuck(Duck):
+	def __init__(self):
+		self.height = 0
+
+	def quack(self):
+		print("I'm a robot")
+
+	def walk(self):
+		print("Walking")
+
+	def fly(self):
+		# Need to comply with drone regulations and can not fly above 120 meters,
+		# this is unexpected behavior, since it not expected to land
+		if self.height > 120:
+			self.land()
+		self.height += 1
+		printf(f"Increased height to {self.height} m")
+
+	def land(self):
+		# This is fine, since it is just added to the class (can be called from outside)
+		self.height = 0
+						</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+						<code  class="hljs python" data-trim data-line-numbers>
+def fly_all_ducks(ducks: List[Duck]) -> None:
+	for duck in ducks:
+		if isinstance(duck, (RoboDuck)): # Not RubberDuck
+			duck.fly()
+						</code>
+						</pre>
+						<div>
+							This also violate the open-close method, since you need to alter this method to add more types.
+						</div>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+						<code  class="hljs python" data-trim data-line-numbers>
+def fly_all_ducks(ducks: List[Duck]) -> None:
+	for duck in ducks:
+		fly_operation = getattr(duck, "fly", None):
+		if callable(fly_operation):
+			fly_operation()
+						</code>
+						</pre>
+						<div>
+							You might also pass inn something that can fly that is not a duck, e.g. a ball or drone.
+						</div>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<div>By using type annotations, throughout our code, and configuring mypy, we can quickly detect some basic errors early, and check basic compliance for free.</div>
+						<pre>
+							<code  class="hljs python" data-trim data-line-numbers>
+class Parent:
+    def do_something(self, arg: int):
+        pass
+class Child(Parent):
+    def do_something(self, arg: int, another_arg: int):
+        pass
+
+// error from mypy static analysis: Signature of "do_something" incompatible with supertype "Parent"
+p = Child()
+p.do_something(123)
+
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Better?</h2>
+						<pre>
+							<code  class="hljs python" data-trim data-line-numbers>
+class Parent:
+    def do_something(self, arg: int, **kwargs):
+        pass
+
+
+class Child(Parent):
+    def do_something(self, arg: int, **kwargs):
+        pass
+							</code>
+						</pre>
+						<aside class="notes">
+							Python has the concept of keyword arguments that can translate to “I don’t know what I’m going to need” if you really can’t predict the future (but think twice before using it – it’s easy to have the problems we’ve already discussed, just harder to spot and solve).
+						</aside>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+							<code  class="hljs javascript" data-trim data-line-numbers>
+class Bird {
+	fly() {
+		console.log('I can fly');
+	}
+}
+class Duck extends Bird {
+	quack() {
+		console.log('I can quack');
+	}
+}
+class Penguin extends Bird {
+	fly() {
+		throw new Error('Cannot fly')
+	}
+	swim() {
+		console.log('I can swim');
+	}
+}
+function makeBirdFly(bird) {
+	// this function should be able to work on all birds
+    bird.fly()
+}
+const duck = new Duck()
+const penguin = new Penguin()
+makeBirdFly(duck)
+makeBirdFly(penguin) // throw an exception
+							</code>
+						</pre>
+						<aside class="notes">
+							https://www.youtube.com/watch?v=dJQMqNOC4Pc
+						</aside>
+					</section>
+
+					<section>
+						<h2>Better?</h2>
+						<pre>
+							<code  class="hljs javascript" data-trim data-line-numbers>
+class FlyingBird {
+    fly() {
+        console.log('I can fly');
+	}
+}
+class SwimmingBird {
+    swim() {
+        console.log('I can swim');
+    }
+}
+class Duck extends FlyingBird {
+    quack() {
+        console.log('I can quack');
+	}
+}
+class Penguin extends SwimmingBird {
+}
+function makeFlyingBirdFly(bird) {
+    bird.fly()
+}
+function makeSwimmingBirdSwim(bird) {
+    bird.swim()
+}
+const duck = new Duck()
+const penguin = new Penguin()
+makeFlyingBirdFly(duck)
+makeSwimmingBirdSwim(penguin)
+						</code>
+						</pre>
+						<div>But can't a Duck also swim?</div>
+						<aside class="notes">
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Is this a violation?</h2>
+						<pre>
+							<code  class="hljs python" data-trim data-line-numbers>
+from abc import ABC, abstractmethod
+
+class Notification(ABC):
+    @abstractmethod
+    def notify(self, message, email):
+        pass
+
+class Email(Notification):
+    def notify(self, message, email):
+        print(f'Send {message} to {email}')
+
+
+class SMS(Notification):
+    def notify(self, message, phone):
+        print(f'Send {message} to {phone}')
+							</code>
+						</pre>
+						<aside class="notes">
+							https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Better?</h2>
+						<pre>
+							<code  class="hljs python" data-trim data-line-numbers>
+from abc import ABC, abstractmethod
+
+
+class Notification(ABC):
+    @abstractmethod
+    def notify(self, message):
+        pass
+
+
+class Email(Notification):
+    def __init__(self, email):
+        self.email = email
+
+    def notify(self, message):
+        print(f'Send "{message}" to {self.email}')
+
+
+class SMS(Notification):
+    def __init__(self, phone):
+        self.phone = phone
+
+    def notify(self, message):
+        print(f'Send "{message}" to {self.phone}')
+						</code>
+						</pre>
+						<aside class="notes">
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Is this a violation?</h2>
+					<pre>
+						<code class="hljs ruby" data-trim data-line-numbers>
+class Car
+  ....
+  def shift_up_gear
+    # implementation goes here
+  end
+end
+
+class TeslaCar < Car
+  def shift_up_gear
+    raise "Not Implemented"
+  end
+end
+
+					</code>
+					</pre>
+					</section>
+
+					<section>
+						<h2>Some signs of violations</h2>
+						<ul class="r-fit-text">
+							<li>
+								Empty, do-nothing implementations of one or more methods in subclasses
+							</li>
+							<li>
+								Throwing an NotImplemented or some other unexpected exception from a subclass method
+							</li>
+							<li>
+								Conditional logic using the instanceof operator to identify the actual subclass
+								<ul>
+									<li>
+										 Fix: If instead you ensure subclass is in all ways substitutable for superclass, there should be no need to include such a check.
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>
+									If you have a foreach loop over a collection of objects of type Foo, and within this loop there is a check to see if Foo is in fact Bar (subtype of Foo)
+									<ul>
+										<li>
+											If instead you ensure Bar is in all ways substitutable for Foo, there should be no need to include such a check.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</aside>
+					</section>
+
+
+					<section data-visibility="hidden">
+						<h2>Note</h2>
+						<div>If you don’t use polymorphism, you don’t need to care about this principle.</div>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Tips</h2>
+						<ul>
+							<li>If you don’t need subclassing – don’t use it. Maybe composition instead of inheritance is the solution?</li>
+							<li>If you need subclassing you need to design it in a way that doesn’t violate the principle. Again: create stable interfaces.</li>
+						</ul>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Warning</h2>
+						<div>Go for composition (has-a relationship) instead of inheritance (is-a relationship), please take a look at these videos <a href="https://www.youtube.com/watch?v=nnwD5Lwwqdo">here</a> and <a href="https://www.youtube.com/watch?v=0mcP8ZpUR38">here</a></div>
+						<img style="width: 400px;" src="assets/composition.png "/>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Typescript example</h2>
 						<pre>
 							<code class="hljs javascript" data-trim data-line-numbers>
 const isEven = (x: number) : boolean => x % 2 == 0;
@@ -592,41 +1812,6 @@ printFiltered(array, isOdd);
 						</pre>
 					</section>
 
-					<section>
-						<h2>How to spot violations</h2>
-						<div>
-							A common code smell that frequently indicates an violation is the presence of type checking code within a code block that should be polymorphic.
-						</div>
-						<aside class="notes">
-						<div>
-							When this principle is violated, it tends to result in a lot of extra conditional logic scattered throughout the application, checking to see the specific type of an object.
-						</div>
-							For instance, if you have a foreach loop over a collection of objects of type Foo, and within this loop there is a check to see if Foo is in fact Bar (subtype of Foo), then this is almost certainly an LSP violation. If instead you ensure Bar is in all ways substitutable for Foo, there should be no need to include such a check.
-							https://deviq.com/principles/liskov-substitution-principle
-						</aside>
-					</section>
-
-					<section>
-						<h2>Some signs of violations</h2>
-						<ul>
-							<li>
-
-							</li>
-						</ul>
-					</section>
-
-					<section>
-						<h2>Benefits</h2>
-						<ul>
-							<li>
-								 Security that an implementation can be replaced without changing its behavior.
-							</li>
-							<li>
-								This principle aims to enforce consistency so that the parent Class or its child Class can be used in the same way without any errors.
-							</li>
-						</ul>
-					</section>
-
 				</section>
 
 				<section>
@@ -634,6 +1819,12 @@ printFiltered(array, isOdd);
 						Interface Segregation Principle
 						<img src="./assets/interface-sgregation-principle2.webp"/>
 					</section>
+
+					<section data-visibility="hidden">
+						<h2>Comment</h2>
+						<div>In contrast to Liskov, this principle is more of a recommendation.</div>
+					</section>
+
 
 					<section>
 						<blockquote style="font-size: 0.7em">
@@ -658,6 +1849,7 @@ printFiltered(array, isOdd);
 						</aside>
 					</section>
 
+
 					<section>
 						<h2>Guideline</h2>
 						<div>
@@ -669,15 +1861,239 @@ printFiltered(array, isOdd);
 					</section>
 
 					<section>
-						<h2>How to spot violations</h2>
-						<div>A very common violation of this principle is the partial implementation of interfaces or base class functionality, leaving unimplemented methods or properties to throw an exception (e.g. NotImplementedException).</div>
-						<div>In bulky interfaces, there are too many operations, but for most objects, these operations are not used.</div>
+						<h2>Main idea</h2>
+						<div>Split up your interface into multiple, smaller interfaces that define a specific need or role.</div>
+						<div style="display: flex">
+						  <div style="flex: 50%;">
+							  <img src="./assets/interface-sgregation-principle-big-interface.png"/>
+						  </div>
+						  <div style="flex: 50%;">
+							  <img src="./assets/interface-sgregation-principle-specific-interface.png"/>
+						  </div>
+						</div>
+						<div class="r-fit-text">
+							Violations result in classes that depend on things they do not need, increasing coupling and reducing flexibility and maintainability. Breaking down interfaces into smaller pieces makes them easier to implement, and offers more control over who sees what.
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>
+									Example 1: An interface containing a large number of methods can be broken down into several smaller and more specialized interfaces. For instance, a separate interface containing methods specific to a certain type of user (e.g. superuser, administrator, or guest) would allow a client to only depend on the methods they need instead of the entire interface.
+								</li>
+								<li>
+									Example 2: An interface containing methods that are not related, such as methods for a payment system and methods for a user authentication system, can be broken into two separate interfaces. This allows the client to only depend on the interface they need, instead of implementing an interface with methods they do not need.
+								</li>
+							</ul>
+						</aside>
 					</section>
 
 					<section>
 						<h2>Benefits</h2>
+						<ul class="r-fit-text">
+						️    <li>Clients should not be forced to depend on methods they do not use.
+							<ul>
+								<li>
+									Note: If a class or module is responsible for performing not related tasks, it means that it violates Single Responsibility Principle.
+								</li>
+							</ul>
+							</li>
+							<li>
+								Intended to keep a system decoupled and thus easier to refactor, change, and redeploy.
+								<ul>
+									<li>
+										Note: the original motivation is to avoid unnecessary recompilation
+									</li>
+								</ul>
+							</li>
+							<li>Developers will have a clear way to use exactly what they need, instead of being forced to interact with functionalities they don’t need.</li>
+						</ul>
+						<aside class="notes">
+							Following SRP leads to cohesive classes. Following ISP reduces coupling between classes and their clients.
+							<ul>
+								<li>Cohesion implies how strongly related and focused the various responsibilities of a module are.</li>
+								<li>Coupling is the degree to which each program module relies on each one of the other modules.</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<h2>Examples</h2>
+					</section>
+
+					<section>
+						<h2>How to spot violations</h2>
+						<div>A very common violation of this principle is the partial implementation of interfaces or base class functionality, leaving unimplemented methods or properties to throw an exception (e.g. NotImplementedException).</div>
+						<aside class="notes">In bulky interfaces, there are too many operations, but for most objects, these operations are not used.</aside>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+							<code class="hljs java" data-trim data-line-numbers>
+interface Bird {
+	public function swim();
+	public function fly();
+
+}
+
+class Duck implements Bird {
+	public function swim() {/*...*/}
+	public function fly() {/*...*/}
+
+}
+
+class Penguin implements Bird {
+	public function swim() {/*...*/}
+	public function fly() {/* exception */}
+}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Better?</h2>
+						<pre>
+							<code class="hljs java" data-trim data-line-numbers>
+interface Bird {
+}
+
+interface FlyingBird {
+	public function fly();
+}
+
+interface SwimmingBird {
+	public function swim();
+}
+
+class Duck implements SwimmingBird, FlyingBird {
+	public function swim() {/*...*/}
+	public function fly() {/*...*/}
+}
+
+class Penguin implements SwimmingBird {
+	public function swim() {/*...*/}
+}
+							</code>
+						</pre>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Example</h2>
+						<pre>
+						<code class="hljs java" data-trim data-line-numbers>
+interface Swimming {
+    fun swim()
+}
+
+interface Flying {
+    fun fly()
+}
+
+class Duck : Swimming, Flying {
+    override fun swim() = println("Duck is swimming")
+    override fun fly() = println("Duck is flying")
+}
+
+class Penguin : Swimming {
+    override fun swim() = println("Penguin is swimming")
+}
+						</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Is this a violation?</h2>
+						<pre>
+							<code class="hljs python" data-trim data-line-numbers>
+class Mammals(ABC):
+    @abstractmethod
+    def swim() -> bool:
+        print("Can Swim")
+
+    @abstractmethod
+    def walk() -> bool:
+        print("Can Walk")
+
+class Human(Mammals):
+    def swim():
+        return print("Humans can swim")
+
+    def walk():
+        return print("Humans can walk")
+
+class Whale(Mammals):
+    def swim():
+        return print("Whales can swim")
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Better?</h2>
+						<pre>
+							<code class="hljs python" data-trim data-line-numbers>
+class Walker(ABC):
+  @abstractmethod
+  def walk() -> bool:
+    return print("Can Walk")
+
+class Swimmer(ABC):
+  @abstractmethod
+  def swim() -> bool:
+    return print("Can Swim")
+
+class Human(Walker, Swimmer):
+  def walk():
+    return print("Humans can walk")
+  def swim():
+    return print("Humans can swim")
+
+class Whale(Swimmer):
+  def swim():
+    return print("Whales can swim")
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Some signs of violations</h2>
 						<ul>
-						️    <li>This principle aims at splitting a set of actions into smaller sets so that a Class executes ONLY the set of actions it requires.</li>
+							<li>
+								Unimplemented interface methods.
+							</li>
+							<li>
+								A client references a class but uses only a small portion of it.
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>How to fix</h2>
+						<ul class="r-fit-text">
+							<li>
+								A client references a class but uses only a small portion of it.
+								<ul>
+									<li>
+										If you find yourself depending on a“fat” interface of your own.
+									</li>
+									<li>
+										Create a smaller interface with just what you need.
+									</li>
+									<li>
+										Reference the new interface with your code.
+									</li>
+								</ul>
+							</li>
+							<li>
+								Reference the new interface with your code.
+								<ul>
+									<li>
+										Create a smaller interface with just what you need.
+									</li>
+									<li>
+										Implement this interface using a Facade pattern.
+									</li>
+								</ul>
+							</li>
 						</ul>
 					</section>
 
@@ -691,33 +2107,217 @@ printFiltered(array, isOdd);
 
 					<section>
 						<blockquote style="font-size: 0.7em">
-							High level modules <b>should not depend upon low level</b> modules. Both <b>should depend upon abstractions</b>.
-							Abstractions should not depend upon details. Details should depend upon abstractions.
+							A) High-level modules <b>should not depend upon low-level </b> modules. Both <b>should depend upon abstractions (e.g. interfaces)</b>.
+							B) Abstractions should not depend upon details. Details (concrete implementations) should depend upon abstractions (abstract classes or interfaces etc.).
 						</blockquote>
 						<div>
 						<img style="height: 40px" src="./assets/dropdown.png" />
 						</div>
 						<blockquote style="font-size: 0.7em">
-							Objects should not instantiate their dependencies, but they should be passed to them.
+							In other words, high-level modules provide complex logic in a system (application), while lower-level modules provide utility features (UI, I/O, network, storage etc.). It is important for high-level modules to be easily reusable and immune to the effects of changes made to lower-level modules.
 						</blockquote>
 					</section>
 
-					<section>
-						<h2>How to spot violations</h2>
-						<ul>
-						</ul>
+					<section data-visibility="hidden">
+						<h2>High vs low level modules</h2>
+						<div>
+							High level modules tell us what the software should do, and low level modules tell us how the software should do various tasks.
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>high: modules written to solve real problems and use cases (business logic). tell us what the software should do, not how it should do.</li>
+								<li>low: implementation details that are required to execute the business policies</li>
+							</ul>
+							High level modules tell us what the software should do, and low level modules tell us how the software should do various tasks.
+							ref: https://ducmanhphan.github.io/2020-01-15-Understanding-about-SOLID-part-5/
+						</aside>
+
 					</section>
 
 					<section>
-						<h2>Some signs of violations</h2>
+						<h2>Guideline</h2>
+						<img style="width: 600px;" src="./assets/dependency-inversion-principle4.png" />
+						<ul class="r-fit-text">
+							<li>
+								Traditionally: direct dependencies
+								<ul>
+									<li>What happens if lower level code changes?</li>
+								</ul>
+							<li>Using dependency inversion: both low-level and high-level classes depends on abstractions. The two will then use this abstraction to communicate and interact amongst each other.
+							<ul>
+								<li>
+									Note: the abstraction is owned by the high-level module.</li>
+								</li>
+							</ul>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>
+									 not on concretions (implementations)
+								</li>
+								<li>
+									 from higher-level classes to lower level classes.
+								</li>
+								<li>
+
+								</li>
+								<li>
+									that both the high-level and low-level module depend on
+								</li>
+								<li>
+									Create an abstract interface that defines the structure of the code that both the high-level and low-level modules will use. This will ensure that both modules have a common interface that they can use to interact with one another.
+								</li>
+								<li>
+									Create an abstract interface that defines the structure of the code that both the high-level and low-level modules will use. This will ensure that both modules have a common interface that they can use to interact with one another.
+								</li>
+							</ul>
+							The dependency inversion principle inverts this dependency in the sense that instead of higher level components depending on lower level ones, both should depend on abstractions.
+							This abstraction layer would be an intermediate component that sits between the higher and lower level components.
+							The two will then use this component to communicate and interact amongst each other.
+							The abstraction component would usually be implemented as an interface.
+							ref: https://haseebkamal.com/the-dependency-inversion-principle-explained-in-python/
+							ref: https://dev.to/rhuzaifa/why-the-dependency-inversion-principle-is-worth-using-opj
+							Instead of high-level code being dependent on low-level code with all its details, they are both dependent on an interface (the abstraction).
+							Do note the abstraction that both the high-level and low-level module depend on is owned by the high-level module, not by the low-level module!
+							Otherwise, the high-level module is still dependent on the low-level module.
+						</aside>
+					</section>
+
+					<section>
+						<h2>Main idea</h2>
+						<div>Depend on abstractions, not on concretions.</div>
+						<img src="./assets/dependency-inversion-principle6.webp" />
+						<ul class="r-fit-text">
+							<li>
+								 What the principle has done is:
+								<ul>
+									<li>
+										1. Both Object A and Object B now depends on Interface A, the abstraction.
+									</li>
+									<li>
+										2. It inverted the dependency that existed from Object A to Object B into Object B being dependent on the abstraction (Interface A).
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<aside class="notes">
+							Lower-level class implementations depend on the interfaces defined at a higher level, therefore details now depend on abstractions.
+							ref: https://springframework.guru/principles-of-object-oriented-design/dependency-inversion-principle/
+							Source code dependencies should not refer to concrete modules. In a statically typed language, this means that import statements should refer only to source modules containing interfaces, abstract classes, or other kinds of abstract declaration. In dynamically typed languages, this rule applies that source code dependencies should not refer to modules in which the functions being called are implemented.
+						</aside>
 					</section>
 
 					<section>
 						<h2>Benefits</h2>
+						<ul class="r-fit-text">
+							<li>Enforce loose coupling and thereby helps make code more robust in face of changes.</li>
+							<li>Low-level changes are facilitated (make your code more robust)
+								<ul>
+									<li>When we modify low-level modules, it should not break the high-level modules.</li>
+								</ul>
+							</li>
+							<li>
+								Improves testability
+								<ul>
+									<li>Easy to swap out implementation when testing (mocking)</li>
+								</ul>
+							</li>
+							<li>Allows the codebase to be easily expanded and extended with new functionalities</li>
+						</ul>
+						<aside class="notes">
+							by avoid high-level modules being dependent on low-level modules, since low-level modules tend to change more often than high-level modules.</li>
+						</aside>
+					</section>
+
+					<section data-visibility="hidden">
+						<h2>Dependency injection</h2>
 						<ul>
-							<li>It decouples the dependencies.</li>
+							<li>Inversion of control: Hollywood Principle: don't call us; we'll call you</li>
+							<li>Dependency injection: objects should not instantiate their dependencies, but they should be passed to them</li>
 						</ul>
 					</section>
+
+
+					<section>
+						<h2>Examples</h2>
+					</section>
+
+
+					<section>
+						<h2>Without</h2>
+						<pre>
+								<code class="hljs python" data-trim data-line-numbers>
+class Apple:
+    def eat(self):
+        print(f"Eating Apple. Transferring {5} units of energy to brain...")
+
+class Chocolate:
+    def eat(self):
+        print(f"Eating Chocolate. Transferring {10} units of energy to brain...")
+
+class Robot:
+    def get_energy(self, eatable: str):
+        if eatable == "Apple":
+            apple = Apple()
+            apple.eat()
+        elif eatable == "Chocolate":
+            chocolate = Chocolate()
+            chocolate.eat()
+
+if __name__ == '__main__':
+    robot = Robot()
+    robot.get_energy("Apple")
+								</code>
+							</pre>
+						<img src="./assets/robot1.png" />
+						<aside class="notes">
+							ref: https://haseebkamal.com/the-dependency-inversion-principle-explained-in-python/
+						</aside>
+					</section>
+
+					<section>
+						<h2>With</h2>
+						<pre>
+								<code class="hljs python" data-trim data-line-numbers>
+from abc import ABC, abstractmethod
+
+class Eatable(ABC):
+    @abstractmethod
+    def eat(self):
+        return NotImplemented
+
+class Apple(Eatable):
+    def eat(self):
+        print(f"Eating Apple. Transferring {5} units of energy to brain...")
+
+class Chocolate(Eatable):
+    def eat(self):
+        print(f"Eating Chocolate. Transferring {10} units of energy to brain...")
+
+class Robot:
+    def get_energy(self, eatable: Eatable):
+        eatable.eat()
+
+if __name__ == '__main__':
+    robot = Robot()
+    robot.get_energy(Apple())
+								</code>
+							</pre>
+						<img src="./assets/robot2.png" />
+						<aside class="notes">
+							We create an Eatable interface that is implemented by both Apple and Chocolate.
+We change the method signature of get_energy so that it expects an argument of type Eatable instead of str. This means we can get rid of the if-else branching. Furthermore, since all eatables implement the Eatable interface we are sure that there will be no code breakage if there changes to Chocolate or Apple.
+						</aside>
+					</section>
+
+					<section>
+						<h2>The repository pattern</h2>
+						<img src="./assets/the-repository-pattern.png" />
+						<aside class="notes">
+							ref: https://www.tripled.io/07/05/2019/dependency-inversion-principle/
+						</aside>
+					</section>
+
 				</section>
 
 				<section>
@@ -725,25 +2325,29 @@ printFiltered(array, isOdd);
 					<table  class="r-fit-text">
 					  <tr>
 						<td>Single responsibility</td>
-						<td>Don’t mix unrelated responsibilities</td>
+						<td>Don’t mix unrelated responsibilities. Write code that concentrates on doing only one thing. Aim to put related features together, so whenever they tend to change they change for the same reason.</td>
 					  </tr>
 						<tr>
 							<td>Open-closed</td>
-							<td>When adding new features, avoid doing a lot of changes in the existing code</td>
+							<td>When adding new features, avoid doing a lot of changes in the existing code. If you want to change the class behavior then change it using inheritance and composition.</td>
 						</tr>
 						<tr>
 							<td>Liskov’s substitution</td>
-							<td>When adding new features, avoid doing a lot of changes in the existing code</td>
+							<td>Subtypes must be substitutable for their base types. Interchangeable parts adhere to a contract that allows them to be substituted without the user of the part having to change.</td>
 						</tr>
 						<tr>
 							<td>Interface Segregation</td>
-							<td>When using an interface, don’t make me implement methods that don’t make sense</td>
+							<td>When using an interface, don’t make me implement methods that don’t make sense. Keep your interfaces super small and compact. Better to write a separate interface for each feature you have in mind. Don't depend on things that you don't use (i.e. only depend on the interface that you need).</td>
 						</tr>
 						<tr>
 							<td>Dependency Inversion Principle</td>
-							<td>Objects should not instantiate their dependencies, but they should be passed to them.</td>
+							<td>Depend on abstractions rather than concrete implementations. Use interfaces and abstractions a lot. Higher level modules shouldn’t depend on lower level modules.</td>
 						</tr>
 					</table>
+				</section>
+
+				<section>
+					<img src="./assets/worshipme.webp" />
 				</section>
 
 				<section data-visibility="hidden">
@@ -755,6 +2359,8 @@ printFiltered(array, isOdd);
 				<section>
 					<h2>References</h2>
 					<ul class="r-fit-text">
+						<li><a href="https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an">Understanding SOLID Principles: Liskov Substitution Principle</a></li>
+						<li><a href="https://learning-notes.mistermicheels.com/architecture-design/oo-design/solid-principles/">SOLID principles</a></li>
 						<li><a href="https://stackoverflow.blog/2021/11/01/why-solid-principles-are-still-the-foundation-for-modern-software-architecture/">Why SOLID principles are still the foundation for modern software architecture</a></li>
 						<li><a href="https://robertojesus.me/open-closed-solid-principle-in-react">Open-closed SOLID principle in React</a></li>
 						<li><a href="https://alexnault.dev/open-closed-principle-in-functional-typescript">Open–Closed Principle in Functional TypeScript</a></li>
@@ -773,20 +2379,6 @@ printFiltered(array, isOdd);
 					</ul>
 				</section>
 
-				<section>
-					<h2>References</h2>
-					<ul>
-						<li>
-							https://camao-tec.com/en/solid-principles-easily-explained/
-						</li>
-						<li>
-							https://www.pythontutorial.net/python-oop/python-open-closed-principle/
-						</li>
-						<li>
-							https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
-						</li>
-					</ul>
-				</section>
 			</div>
 		</div>
 
